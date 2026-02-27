@@ -183,12 +183,12 @@ def generate_with_gemini(text, slides=5, bg_image=None, api_key=None):
         # 존재하지 않는 모델 ID는 즉시 실패하므로 로그로 확인 가능하게 함
         # 실제로 가용한 모델 ID 리스트 (404 예방)
         models_to_try = [
-            "gemini-flash-latest",
-            "gemini-flash-lite-latest",
-            "gemini-2.5-flash-lite",
-            "gemini-3-flash-preview",
-            "gemini-pro-latest",
-            "gemini-3.1-pro-preview"
+            "gemini-2.0-flash",           # 최신 2.0 Flash
+            "gemini-1.5-flash",           # 표준 1.5 Flash
+            "gemini-1.5-flash-8b",        # 경량 Flash
+            "gemini-1.5-pro",            # 표준 1.5 Pro
+            "gemini-flash-latest",        # 별칭
+            "gemini-pro-latest"           # 별칭
         ]
         
         last_error = None
@@ -212,12 +212,17 @@ def generate_with_gemini(text, slides=5, bg_image=None, api_key=None):
             except Exception as e:
                 print(f"[WARN] {model_id} failed: {e}", file=sys.stderr)
                 last_error = e
+                # 429 에러(할당량 초과)가 발생하면 더 이상 다른 모델을 시도하지 않고 즉시 에러를 던짐
+                if "429" in str(e) or "RESOURCE_EXHAUSTED" in str(e):
+                    raise e
                 continue
         
+        if last_error:
+            raise last_error
         return None
     except Exception as e:
         print(f"[ERROR] Gemini general error: {e}", file=sys.stderr)
-        return None
+        raise e
 
 
 def generate_with_claude(text, slides=5, bg_image=None, api_key=None):
