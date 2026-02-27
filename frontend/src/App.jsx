@@ -11,7 +11,7 @@ import {
 import { motion, AnimatePresence } from 'framer-motion'
 import Login from './Login';
 
-const BACKEND_URL = "http://localhost:8899";
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:8899";
 
 const THEME_PRESETS = [
     { name: '다크 골드', bg: '#1A1A1A', primary: '#D4AF37', accent: '#f5c842', icon: '🌙' },
