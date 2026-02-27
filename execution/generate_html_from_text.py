@@ -200,7 +200,7 @@ def generate_with_gemini(text, slides=5, bg_image=None, api_key=None):
                     model=model_id,
                     contents=build_prompt(text, slides, bg_image),
                     config=types.GenerateContentConfig(
-                        response_mime_type="application/json",
+                        # v1 API는 responseMimeType 미지원 → 프롬프트로 JSON 유도
                         temperature=0.3,
                         max_output_tokens=8192,
                     )
