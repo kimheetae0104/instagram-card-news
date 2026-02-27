@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700;900&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background: #0a0a0a;
+        }
+
+        .slide {
+            width: 1080px;
+            height: 1350px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ===== SLIDE 1: COVER ===== */
+        .slide-cover {
+            background: linear-gradient(160deg, #0D0D0D 0%, #1a1a1a 100%);
+            padding: 100px 80px;
+            justify-content: center;
+        }
+
+        .slide-cover::before {
+            content: '';
+            position: absolute;
+            top: -200px;
+            right: -200px;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.15), transparent 70%);
+            border-radius: 50%;
+        }
+
+        .slide-cover::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, #D4AF37, #f5c842, #D4AF37);
+        }
+
+        .cover-badge {
+            display: inline-block;
+            background: rgba(212, 175, 55, 0.15);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 50px;
+            padding: 12px 28px;
+            font-size: 18px;
+            font-weight: 700;
+            color: #D4AF37;
+            letter-spacing: 2px;
+            margin-bottom: 50px;
+        }
+
+        .cover-title {
+            font-size: 64px;
+            font-weight: 900;
+            color: #fff;
+            line-height: 1.2;
+            margin-bottom: 30px;
+            letter-spacing: -2px;
+        }
+
+        .cover-title em {
+            font-style: normal;
+            color: #D4AF37;
+        }
+
+        .cover-subtitle {
+            font-size: 32px;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.5);
+            line-height: 1.5;
+        }
+
+        .cover-deco-line {
+            width: 60px;
+            height: 4px;
+            background: #D4AF37;
+            margin: 40px 0;
+            border-radius: 2px;
+        }
+
+        /* ===== SLIDE BODY: CONTENT ===== */
+        .slide-body {
+            background: #F8F8F8;
+            padding: 90px 80px 80px;
+            justify-content: flex-start;
+        }
+
+        .slide-body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, #D4AF37, #f5c842);
+        }
+
+        .body-step-label {
+            font-size: 16px;
+            font-weight: 700;
+            color: #D4AF37;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .body-title {
+            font-size: 48px;
+            font-weight: 900;
+            color: #111;
+            line-height: 1.3;
+            margin-bottom: 40px;
+            letter-spacing: -1px;
+        }
+
+        .body-title em {
+            font-style: normal;
+            background: linear-gradient(transparent 60%, rgba(212, 175, 55, 0.2) 60%);
+        }
+
+        .body-text {
+            font-size: 28px;
+            font-weight: 300;
+            color: #444;
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+        .body-highlight-box {
+            background: #fff;
+            border-left: 5px solid #D4AF37;
+            border-radius: 0 16px 16px 0;
+            padding: 35px 40px;
+            margin: 30px 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+        }
+
+        .body-highlight-box .number {
+            font-size: 52px;
+            font-weight: 900;
+            color: #D4AF37;
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .body-highlight-box .label {
+            font-size: 22px;
+            font-weight: 400;
+            color: #888;
+        }
+
+        .body-bullet-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .body-bullet-list li {
+            font-size: 28px;
+            font-weight: 400;
+            color: #333;
+            padding: 20px 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            line-height: 1.5;
+        }
+
+        .body-bullet-list li::before {
+            content: '';
+            width: 10px;
+            height: 10px;
+            background: #D4AF37;
+            border-radius: 50%;
+            margin-top: 12px;
+            flex-shrink: 0;
+        }
+
+        .body-data-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .data-card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 35px 30px;
+            text-align: center;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.04);
+        }
+
+        .data-card .value {
+            font-size: 42px;
+            font-weight: 900;
+            color: #111;
+            margin-bottom: 8px;
+        }
+
+        .data-card .desc {
+            font-size: 18px;
+            font-weight: 400;
+            color: #999;
+        }
+
+        /* ===== SLIDE CTA: CLOSING ===== */
+        .slide-cta {
+            background: linear-gradient(160deg, #111 0%, #1a1a1a 100%);
+            padding: 100px 80px;
+            justify-content: center;
+            text-align: center;
+            align-items: center;
+        }
+
+        .cta-emoji {
+            font-size: 80px;
+            margin-bottom: 40px;
+        }
+
+        .cta-title {
+            font-size: 48px;
+            font-weight: 900;
+            color: #fff;
+            line-height: 1.3;
+            margin-bottom: 50px;
+        }
+
+        .cta-list {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 60px;
+            text-align: left;
+            width: 100%;
+            max-width: 700px;
+        }
+
+        .cta-list li {
+            font-size: 28px;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.7);
+            padding: 22px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .cta-list li .check {
+            width: 28px;
+            height: 28px;
+            background: #D4AF37;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: #000;
+            font-weight: 900;
+            flex-shrink: 0;
+        }
+
+        .cta-action {
+            display: inline-block;
+            background: #D4AF37;
+            color: #000;
+            font-size: 24px;
+            font-weight: 900;
+            padding: 24px 60px;
+            border-radius: 60px;
+            letter-spacing: 2px;
+        }
+
+        /* ===== COMMON: FOOTER BAR ===== */
+        .slide-footer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 25px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .slide-footer .brand {
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .slide-footer .counter {
+            font-size: 14px;
+            font-weight: 400;
+        }
+
+        .slide-cover .slide-footer .brand,
+        .slide-cta .slide-footer .brand {
+            color: rgba(212, 175, 55, 0.5);
+        }
+
+        .slide-cover .slide-footer .counter,
+        .slide-cta .slide-footer .counter {
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        .slide-body .slide-footer .brand {
+            color: rgba(212, 175, 55, 0.6);
+        }
+
+        .slide-body .slide-footer .counter {
+            color: rgba(0, 0, 0, 0.15);
+        }
+    </style>
+</head>
+
+<body>
+    {{SLIDES}}
+</body>
+
+</html>

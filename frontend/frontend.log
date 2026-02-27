@@ -1,0 +1,87 @@
+
+> frontend@0.0.0 dev
+> vite --port 5189
+
+
+  VITE v4.5.14  ready in 95 ms
+
+  ➜  Local:   http://localhost:5189/
+  ➜  Network: use --host to expose
+9:22:50 AM [vite] hmr update /src/App.jsx, /src/index.css
+9:25:12 AM [vite] hmr update /src/App.jsx, /src/index.css
+9:34:27 AM [vite] hmr update /src/App.jsx, /src/index.css
+9:58:29 AM [vite] hmr update /src/App.jsx, /src/index.css
+10:00:59 AM [vite] hmr update /src/App.jsx, /src/index.css
+10:02:56 AM [vite] hmr update /src/App.jsx, /src/index.css
+10:03:05 AM [vite] hmr update /src/App.jsx, /src/index.css
+10:04:26 AM [vite] hmr update /src/App.jsx, /src/index.css
+10:05:17 AM [vite] hmr update /src/App.jsx, /src/index.css
+10:05:33 AM [vite] hmr update /src/App.jsx, /src/index.css
+10:07:48 AM [vite] hmr update /src/App.jsx, /src/index.css
+10:42:43 AM [vite] hmr update /src/App.jsx, /src/index.css
+10:43:37 AM [vite] hmr update /src/App.jsx, /src/index.css
+10:55:59 AM [vite] hmr update /src/App.jsx, /src/index.css
+10:56:47 AM [vite] hmr update /src/App.jsx, /src/index.css
+10:57:05 AM [vite] hmr update /src/App.jsx, /src/index.css
+10:57:51 AM [vite] hmr update /src/App.jsx, /src/index.css
+10:58:42 AM [vite] hmr update /src/App.jsx, /src/index.css
+10:59:14 AM [vite] hmr update /src/App.jsx, /src/index.css
+11:00:28 AM [vite] hmr update /src/App.jsx, /src/index.css
+11:01:15 AM [vite] hmr update /src/App.jsx, /src/index.css
+11:01:43 AM [vite] hmr update /src/App.jsx, /src/index.css
+11:02:18 AM [vite] hmr update /src/App.jsx, /src/index.css
+11:03:15 AM [vite] hmr update /src/App.jsx, /src/index.css
+11:03:49 AM [vite] hmr update /src/App.jsx, /src/index.css
+11:04:59 AM [vite] hmr update /src/App.jsx, /src/index.css
+11:06:06 AM [vite] hmr update /src/App.jsx, /src/index.css
+11:06:57 AM [vite] hmr update /src/App.jsx, /src/index.css
+11:07:10 AM [vite] hmr update /src/App.jsx, /src/index.css
+11:07:25 AM [vite] hmr update /src/App.jsx, /src/index.css
+11:09:22 AM [vite] hmr update /src/App.jsx, /src/index.css
+11:10:27 AM [vite] hmr update /src/App.jsx, /src/index.css
+11:11:00 AM [vite] hmr update /src/App.jsx, /src/index.css
+11:11:41 AM [vite] hmr update /src/App.jsx, /src/index.css
+11:21:15 AM [vite] hmr update /src/App.jsx, /src/index.css
+11:23:28 AM [vite] hmr update /src/App.jsx, /src/index.css
+11:23:45 AM [vite] hmr update /src/App.jsx, /src/index.css
+11:23:51 AM [vite] hmr update /src/App.jsx, /src/index.css
+11:23:56 AM [vite] hmr update /src/App.jsx, /src/index.css
+11:24:17 AM [vite] hmr update /src/App.jsx, /src/index.css
+11:24:24 AM [vite] hmr update /src/App.jsx, /src/index.css
+11:24:30 AM [vite] hmr update /src/App.jsx, /src/index.css
+11:24:41 AM [vite] hmr update /src/App.jsx, /src/index.css
+11:25:14 AM [vite] hmr update /src/App.jsx, /src/index.css
+11:25:47 AM [vite] hmr update /src/App.jsx, /src/index.css
+11:26:48 AM [vite] page reload dist/index.html
+11:27:00 AM [vite] hmr update /src/App.jsx, /src/index.css
+11:27:10 AM [vite] hmr update /src/App.jsx, /src/index.css
+11:27:38 AM [vite] hmr update /src/App.jsx, /src/index.css
+11:27:48 AM [vite] hmr update /src/App.jsx, /src/index.css
+11:28:01 AM [vite] hmr update /src/App.jsx, /src/index.css
+11:28:14 AM [vite] page reload dist/index.html
+11:29:56 AM [vite] hmr update /src/App.jsx, /src/index.css
+11:30:01 AM [vite] hmr update /src/App.jsx, /src/index.css
+11:30:18 AM [vite] hmr update /src/App.jsx, /src/index.css
+11:30:22 AM [vite] page reload dist/index.html
+11:41:00 AM [vite] hmr update /src/App.jsx, /src/index.css
+11:41:18 AM [vite] hmr update /src/App.jsx, /src/index.css
+11:41:32 AM [vite] hmr update /src/App.jsx, /src/index.css
+11:41:50 AM [vite] hmr update /src/App.jsx, /src/index.css
+11:41:55 AM [vite] hmr update /src/App.jsx, /src/index.css
+11:42:05 AM [vite] hmr update /src/App.jsx, /src/index.css
+11:42:34 AM [vite] hmr update /src/App.jsx, /src/index.css
+11:42:42 AM [vite] page reload dist/index.html
+11:42:56 AM [vite] hmr update /src/App.jsx, /src/index.css
+11:43:44 AM [vite] hmr update /src/App.jsx, /src/index.css
+11:43:48 AM [vite] page reload dist/index.html
+11:43:56 AM [vite] hmr update /src/App.jsx, /src/index.css
+11:44:01 AM [vite] hmr update /src/App.jsx, /src/index.css
+11:44:09 AM [vite] hmr update /src/App.jsx, /src/index.css
+11:44:14 AM [vite] page reload dist/index.html
+11:46:12 AM [vite] page reload dist/index.html
+11:46:12 AM [vite] page reload dist/index.html
+11:49:40 AM [vite] page reload dist/index.html
+11:53:55 AM [vite] page reload dist/index.html
+1:33:27 PM [vite] hmr update /src/App.jsx, /src/index.css
+1:34:27 PM [vite] hmr update /src/App.jsx, /src/index.css
+1:38:36 PM [vite] hmr update /src/App.jsx, /src/index.css

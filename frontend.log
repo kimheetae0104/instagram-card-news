@@ -1,0 +1,207 @@
+
+> frontend@0.0.0 dev
+> vite --port 5189
+
+
+  VITE v4.5.14  ready in 244 ms
+
+  ➜  Local:   http://localhost:5189/
+  ➜  Network: use --host to expose
+9:08:28 PM [vite] hmr update /src/Login.jsx, /src/index.css
+9:17:54 PM [vite] vite.config.js changed, restarting server...
+9:17:54 PM [vite] server restarted.
+9:23:02 PM [vite] hmr update /src/App.jsx, /src/index.css
+9:23:02 PM [vite] Internal server error: Failed to resolve import "color" from "src/components/ui/color-picker.jsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /Users/gimhuitae/Work/Instargram_card_news/frontend/src/components/ui/color-picker.jsx:2:18
+  17 |  "use client";
+  18 |  var _s = $RefreshSig$(), _s2 = $RefreshSig$(), _s3 = $RefreshSig$(), _s4 = $RefreshSig$(), _s5 = $RefreshSig$(), _s6 = $RefreshSig$(), _s7 = $RefreshSig$(), _s8 = $RefreshSig$();
+  19 |  import Color from "color";
+     |                     ^
+  20 |  import { PipetteIcon } from "lucide-react";
+  21 |  import { Slider } from "radix-ui";
+      at formatError (file:///Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44066:46)
+      at TransformContext.error (file:///Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44062:19)
+      at normalizeUrl (file:///Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41845:33)
+      at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+      at async file:///Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41999:47
+      at async Promise.all (index 3)
+      at async TransformContext.transform (file:///Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41915:13)
+      at async Object.transform (file:///Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44356:30)
+      at async loadAndTransform (file:///Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:55088:29)
+Failed to resolve import "color" from "src/components/ui/color-picker.jsx". Does the file exist?
+9:23:02 PM [vite] ✨ new dependencies optimized: clsx, tailwind-merge, @radix-ui/react-slot, class-variance-authority, @radix-ui/react-select
+9:23:02 PM [vite] ✨ optimized dependencies changed. reloading
+Failed to resolve import "color" from "src/components/ui/color-picker.jsx". Does the file exist?
+9:23:02 PM [vite] Internal server error: Failed to resolve import "color" from "src/components/ui/color-picker.jsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /Users/gimhuitae/Work/Instargram_card_news/frontend/src/components/ui/color-picker.jsx:2:18
+  17 |  "use client";
+  18 |  var _s = $RefreshSig$(), _s2 = $RefreshSig$(), _s3 = $RefreshSig$(), _s4 = $RefreshSig$(), _s5 = $RefreshSig$(), _s6 = $RefreshSig$(), _s7 = $RefreshSig$(), _s8 = $RefreshSig$();
+  19 |  import Color from "color";
+     |                     ^
+  20 |  import { PipetteIcon } from "lucide-react";
+  21 |  import { Slider } from "radix-ui";
+      at formatError (file:///Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44066:46)
+      at TransformContext.error (file:///Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44062:19)
+      at normalizeUrl (file:///Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41845:33)
+      at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+      at async file:///Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41999:47
+      at async Promise.all (index 3)
+      at async TransformContext.transform (file:///Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41915:13)
+      at async Object.transform (file:///Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44356:30)
+      at async loadAndTransform (file:///Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:55088:29)
+      at async viteTransformMiddleware (file:///Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:64699:32)
+9:35:12 PM [vite] ✨ new dependencies optimized: color, radix-ui
+9:35:12 PM [vite] ✨ optimized dependencies changed. reloading
+10:14:48 PM [vite] hmr update /src/App.jsx, /src/index.css
+10:18:44 PM [vite] hmr update /src/App.jsx, /src/index.css
+10:19:04 PM [vite] hmr update /src/index.css
+10:25:02 PM [vite] hmr update /src/App.jsx, /src/index.css
+10:25:11 PM [vite] hmr update /src/App.jsx, /src/index.css
+10:25:11 PM [vite] Internal server error: /Users/gimhuitae/Work/Instargram_card_news/frontend/src/App.jsx: Expected corresponding JSX closing tag for <header>. (160:16)
+
+  158 |                         <span className="text-[9px] font-bold text-gray-500">AI 엔진 작동 중</span>
+  159 |                     </div>
+> 160 |                 </div>
+      |                 ^
+  161 |                 <div className="flex items-center gap-3">
+  162 |                     {activeStep === 2 && (
+  163 |                         <button onClick={() => { setActiveStep(1); setHtmlText(''); }} className="text-[10px] font-bold text-gray-400 hover:text-gray-600 transition-colors">
+  Plugin: vite:react-babel
+  File: /Users/gimhuitae/Work/Instargram_card_news/frontend/src/App.jsx:160:16
+  158|                          <span className="text-[9px] font-bold text-gray-500">AI 엔진 작동 중</span>
+  159|                      </div>
+  160|                  </div>
+     |                  ^
+  161|                  <div className="flex items-center gap-3">
+  162|                      {activeStep === 2 && (
+      at constructor (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:365:19)
+      at JSXParserMixin.raise (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:6599:19)
+      at JSXParserMixin.jsxParseElementAt (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:4727:16)
+      at JSXParserMixin.jsxParseElementAt (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:4698:32)
+      at JSXParserMixin.jsxParseElement (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:4749:17)
+      at JSXParserMixin.parseExprAtom (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:4759:19)
+      at JSXParserMixin.parseExprSubscripts (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:11081:23)
+      at JSXParserMixin.parseUpdate (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:11066:21)
+      at JSXParserMixin.parseMaybeUnary (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:11046:23)
+      at JSXParserMixin.parseMaybeUnaryOrPrivate (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:10899:61)
+      at JSXParserMixin.parseExprOps (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:10904:23)
+      at JSXParserMixin.parseMaybeConditional (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:10881:23)
+      at JSXParserMixin.parseMaybeAssign (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:10831:21)
+      at /Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:10800:39
+      at JSXParserMixin.allowInAnd (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:12426:12)
+      at JSXParserMixin.parseMaybeAssignAllowIn (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:10800:17)
+      at JSXParserMixin.parseMaybeAssignAllowInOrVoidPattern (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:12493:17)
+      at JSXParserMixin.parseParenAndDistinguishExpression (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:11675:28)
+      at JSXParserMixin.parseExprAtom (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:11331:23)
+      at JSXParserMixin.parseExprAtom (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:4764:20)
+      at JSXParserMixin.parseExprSubscripts (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:11081:23)
+      at JSXParserMixin.parseUpdate (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:11066:21)
+      at JSXParserMixin.parseMaybeUnary (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:11046:23)
+      at JSXParserMixin.parseMaybeUnaryOrPrivate (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:10899:61)
+      at JSXParserMixin.parseExprOps (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:10904:23)
+      at JSXParserMixin.parseMaybeConditional (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:10881:23)
+      at JSXParserMixin.parseMaybeAssign (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:10831:21)
+      at JSXParserMixin.parseExpressionBase (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:10784:23)
+      at /Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:10780:39
+      at JSXParserMixin.allowInAnd (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:12421:16)
+      at JSXParserMixin.parseExpression (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:10780:17)
+      at JSXParserMixin.parseReturnStatement (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:13142:28)
+      at JSXParserMixin.parseStatementContent (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:12798:21)
+      at JSXParserMixin.parseStatementLike (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:12767:17)
+      at JSXParserMixin.parseStatementListItem (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:12747:17)
+      at JSXParserMixin.parseBlockOrModuleBlockBody (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:13316:61)
+      at JSXParserMixin.parseBlockBody (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:13309:10)
+      at JSXParserMixin.parseBlock (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:13297:10)
+      at JSXParserMixin.parseFunctionBody (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:12100:24)
+      at JSXParserMixin.parseFunctionBodyAndFinish (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:12086:10)
+      at /Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:13445:12
+      at JSXParserMixin.withSmartMixTopicForbiddingContext (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:12403:14)
+      at JSXParserMixin.parseFunction (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:13444:10)
+      at JSXParserMixin.parseExportDefaultExpression (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:13907:19)
+      at JSXParserMixin.parseExport (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:13828:25)
+      at JSXParserMixin.parseStatementContent (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:12878:27)
+      at JSXParserMixin.parseStatementLike (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:12767:17)
+      at JSXParserMixin.parseModuleItem (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:12744:17)
+      at JSXParserMixin.parseBlockOrModuleBlockBody (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:13316:36)
+      at JSXParserMixin.parseBlockBody (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:13309:10)
+10:25:30 PM [vite] hmr update /src/App.jsx, /src/index.css
+10:25:53 PM [vite] hmr update /src/App.jsx, /src/index.css
+10:34:56 PM [vite] hmr update /src/App.jsx, /src/index.css
+10:37:12 PM [vite] hmr update /src/App.jsx, /src/index.css
+10:37:42 PM [vite] hmr update /src/App.jsx, /src/index.css
+11:19:12 PM [vite] hmr update /src/App.jsx, /src/index.css
+11:19:24 PM [vite] hmr update /src/App.jsx, /src/index.css
+11:21:50 PM [vite] hmr update /src/App.jsx, /src/index.css
+11:26:01 PM [vite] hmr update /src/App.jsx, /src/index.css
+11:37:39 PM [vite] hmr update /src/App.jsx, /src/index.css
+11:37:39 PM [vite] Internal server error: /Users/gimhuitae/Work/Instargram_card_news/frontend/src/App.jsx: Unexpected token (138:19)
+
+  136 |                     ...(bgImage ? { bg_image_url: bgImage } : {})
+  137 |                 }),
+> 138 |                 if(!response.ok) {
+      |                    ^
+  139 |                     const errorData = await response.json().catch(() => ({ detail: "서버 오류가 발생했습니다." }));
+  140 |             throw new Error(errorData.detail || "생성 실패");
+  141 |         }
+  Plugin: vite:react-babel
+  File: /Users/gimhuitae/Work/Instargram_card_news/frontend/src/App.jsx:138:19
+  136|                      ...(bgImage ? { bg_image_url: bgImage } : {})
+  137|                  }),
+  138|                  if(!response.ok) {
+     |                     ^
+  139|                      const errorData = await response.json().catch(() => ({ detail: "서버 오류가 발생했습니다." }));
+  140|              throw new Error(errorData.detail || "생성 실패");
+      at constructor (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:365:19)
+      at JSXParserMixin.raise (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:6599:19)
+      at JSXParserMixin.unexpected (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:6619:16)
+      at JSXParserMixin.parseIdentifierName (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:12203:12)
+      at JSXParserMixin.parseIdentifier (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:12181:23)
+      at JSXParserMixin.parseBindingAtom (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:7356:17)
+      at JSXParserMixin.parseMaybeDefault (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:7444:39)
+      at JSXParserMixin.parseBindingElement (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:7428:23)
+      at JSXParserMixin.parseBindingList (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:7392:24)
+      at JSXParserMixin.parseFunctionParams (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:13461:24)
+      at JSXParserMixin.parseMethod (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:12043:10)
+      at JSXParserMixin.parseObjectMethod (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:11944:19)
+      at JSXParserMixin.parseObjPropValue (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:11978:23)
+      at JSXParserMixin.parsePropertyDefinition (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:11915:17)
+      at JSXParserMixin.parseObjectLike (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:11832:21)
+      at JSXParserMixin.parseExprAtom (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:11339:23)
+      at JSXParserMixin.parseExprAtom (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:4764:20)
+      at JSXParserMixin.parseExprSubscripts (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:11081:23)
+      at JSXParserMixin.parseUpdate (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:11066:21)
+      at JSXParserMixin.parseMaybeUnary (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:11046:23)
+      at JSXParserMixin.parseMaybeUnaryOrPrivate (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:10899:61)
+      at JSXParserMixin.parseExprOps (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:10904:23)
+      at JSXParserMixin.parseMaybeConditional (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:10881:23)
+      at JSXParserMixin.parseMaybeAssign (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:10831:21)
+      at /Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:10800:39
+      at JSXParserMixin.allowInAnd (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:12426:12)
+      at JSXParserMixin.parseMaybeAssignAllowIn (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:10800:17)
+      at JSXParserMixin.parseMaybeAssignAllowInOrVoidPattern (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:12493:17)
+      at JSXParserMixin.parseExprListItem (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:12175:18)
+      at JSXParserMixin.parseCallExpressionArguments (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:11252:22)
+      at JSXParserMixin.parseCoverCallAndAsyncArrowHead (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:11186:29)
+      at JSXParserMixin.parseSubscript (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:11120:19)
+      at JSXParserMixin.parseSubscripts (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:11094:19)
+      at JSXParserMixin.parseExprSubscripts (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:11085:17)
+      at JSXParserMixin.parseUpdate (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:11066:21)
+      at JSXParserMixin.parseMaybeUnary (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:11046:23)
+      at JSXParserMixin.parseAwait (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:12278:28)
+      at JSXParserMixin.parseMaybeUnary (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:11015:25)
+      at JSXParserMixin.parseMaybeUnaryOrPrivate (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:10899:61)
+      at JSXParserMixin.parseExprOps (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:10904:23)
+      at JSXParserMixin.parseMaybeConditional (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:10881:23)
+      at JSXParserMixin.parseMaybeAssign (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:10831:21)
+      at /Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:10800:39
+      at JSXParserMixin.allowInAnd (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:12421:16)
+      at JSXParserMixin.parseMaybeAssignAllowIn (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:10800:17)
+      at JSXParserMixin.parseVar (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:13384:91)
+      at JSXParserMixin.parseVarStatement (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:13230:10)
+      at JSXParserMixin.parseStatementContent (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:12851:23)
+      at JSXParserMixin.parseStatementLike (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:12767:17)
+      at JSXParserMixin.parseStatementListItem (/Users/gimhuitae/Work/Instargram_card_news/frontend/node_modules/@babel/parser/lib/index.js:12747:17)
+11:40:40 PM [vite] hmr update /src/App.jsx, /src/index.css
+11:56:16 PM [vite] hmr update /src/App.jsx, /src/index.css

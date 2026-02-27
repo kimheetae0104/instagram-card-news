@@ -1,0 +1,868 @@
+INFO:     Started server process [31338]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8899 (Press CTRL+C to quit)
+INFO:     127.0.0.1:63400 - "OPTIONS /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63400 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63402 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63404 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63400 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63406 - "OPTIONS /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63402 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63400 - "GET /api/me HTTP/1.1" 200 OK
+Trend Error: The request failed: Google returned a response with code 404
+INFO:     127.0.0.1:63401 - "GET /api/trends HTTP/1.1" 200 OK
+Trend Error: The request failed: Google returned a response with code 404
+INFO:     127.0.0.1:63400 - "GET /api/trends HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63408 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63496 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63497 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63408 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63499 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63496 - "GET /api/health HTTP/1.1" 200 OK
+Trend Error: The request failed: Google returned a response with code 404
+INFO:     127.0.0.1:63495 - "GET /api/trends HTTP/1.1" 200 OK
+Trend Error: The request failed: Google returned a response with code 404
+INFO:     127.0.0.1:63496 - "GET /api/trends HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54145 - "OPTIONS /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54145 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54150 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54152 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54153 - "OPTIONS /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54150 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54145 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54153 - "GET /api/me HTTP/1.1" 200 OK
+Trend Error: The request failed: Google returned a response with code 404
+INFO:     127.0.0.1:54149 - "GET /api/trends HTTP/1.1" 200 OK
+Trend Error: The request failed: Google returned a response with code 404
+INFO:     127.0.0.1:54153 - "GET /api/trends HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54153 - "OPTIONS /api/generate_html HTTP/1.1" 200 OK
+1. Researching: 2026 부동산 전망...
+2. Generating HTML with researched context...
+Subprocess Error: [INFO] ✅ 예시 HTML 로드 완료
+[INFO] Gemini (1.5-flash) generating...
+[WARN] gemini-1.5-flash failed: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}
+[WARN] gemini-2.0-flash-lite failed: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.0-flash-lite\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash-lite\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash-lite\nPlease retry in 5.650798277s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_input_token_count', 'quotaId': 'GenerateContentInputTokensPerModelPerMinute-FreeTier', 'quotaDimensions': {'model': 'gemini-2.0-flash-lite', 'location': 'global'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerMinutePerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.0-flash-lite'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'model': 'gemini-2.0-flash-lite', 'location': 'global'}}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '5s'}]}}
+[WARN] gemini-1.5-flash-8b failed: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-1.5-flash-8b is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}
+[WARN] gemini-1.0-pro failed: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-1.0-pro is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}
+[INFO] Generating with qwen2.5-coder:14b...
+[ERROR] Ollama: timed out
+[ERROR] 모든 모델에서 생성 실패
+
+Final Error: AI 서비스 할당량이 초과되었습니다. 1분 후 다시 시도해주세요.
+INFO:     127.0.0.1:54153 - "POST /api/generate_html HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:55430 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55438 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55438 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55442 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55443 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55471 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55438 - "GET /api/health HTTP/1.1" 200 OK
+Trend Error: 
+INFO:     127.0.0.1:55439 - "GET /api/trends HTTP/1.1" 200 OK
+Trend Error: The request failed: Google returned a response with code 404
+INFO:     127.0.0.1:55439 - "GET /api/trends HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60448 - "OPTIONS /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60448 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60453 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60455 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60456 - "OPTIONS /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60453 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60448 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60456 - "GET /api/me HTTP/1.1" 200 OK
+Trend Error: The request failed: Google returned a response with code 404
+INFO:     127.0.0.1:60451 - "GET /api/trends HTTP/1.1" 200 OK
+Trend Error: The request failed: Google returned a response with code 404
+INFO:     127.0.0.1:60456 - "GET /api/trends HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61248 - "OPTIONS /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61248 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61254 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61255 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61256 - "OPTIONS /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61254 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61248 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61254 - "GET /api/me HTTP/1.1" 200 OK
+Trend Error: The request failed: Google returned a response with code 404
+INFO:     127.0.0.1:61252 - "GET /api/trends HTTP/1.1" 200 OK
+Trend Error: The request failed: Google returned a response with code 404
+INFO:     127.0.0.1:61254 - "GET /api/trends HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61331 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61334 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61331 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61335 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61337 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61334 - "GET /api/health HTTP/1.1" 200 OK
+Trend Error: The request failed: Google returned a response with code 404
+INFO:     127.0.0.1:61333 - "GET /api/trends HTTP/1.1" 200 OK
+Trend Error: The request failed: Google returned a response with code 404
+INFO:     127.0.0.1:61334 - "GET /api/trends HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61357 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61361 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61363 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61357 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61365 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61361 - "GET /api/health HTTP/1.1" 200 OK
+Trend Error: The request failed: Google returned a response with code 404
+INFO:     127.0.0.1:61359 - "GET /api/trends HTTP/1.1" 200 OK
+Trend Error: The request failed: Google returned a response with code 404
+INFO:     127.0.0.1:61361 - "GET /api/trends HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61359 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61365 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61363 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61363 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61375 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61359 - "GET /api/history HTTP/1.1" 200 OK
+Trend Error: The request failed: Google returned a response with code 404
+INFO:     127.0.0.1:61357 - "GET /api/trends HTTP/1.1" 200 OK
+Trend Error: The request failed: Google returned a response with code 404
+INFO:     127.0.0.1:61375 - "GET /api/trends HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61376 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61401 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61402 - "GET /api/health HTTP/1.1" 200 OK
+Trend Error: The request failed: Google returned a response with code 404
+INFO:     127.0.0.1:61400 - "GET /api/trends HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61440 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61443 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61444 - "GET /api/health HTTP/1.1" 200 OK
+Trend Error: The request failed: Google returned a response with code 404
+INFO:     127.0.0.1:61442 - "GET /api/trends HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61484 - "OPTIONS /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61484 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61488 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61491 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61492 - "OPTIONS /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61488 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61484 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61488 - "GET /api/me HTTP/1.1" 200 OK
+Trend Error: The request failed: Google returned a response with code 404
+INFO:     127.0.0.1:61487 - "GET /api/trends HTTP/1.1" 200 OK
+Trend Error: The request failed: Google returned a response with code 404
+INFO:     127.0.0.1:61488 - "GET /api/trends HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61488 - "OPTIONS /api/generate_html HTTP/1.1" 200 OK
+1. Researching: 비트코인 신고가...
+2. Generating HTML with researched context...
+INFO:     127.0.0.1:61488 - "POST /api/generate_html HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61488 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61566 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61566 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61570 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61571 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61573 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61566 - "GET /api/health HTTP/1.1" 200 OK
+Trend Error: The request failed: Google returned a response with code 404
+INFO:     127.0.0.1:61567 - "GET /api/trends HTTP/1.1" 200 OK
+Trend Error: The request failed: Google returned a response with code 404
+INFO:     127.0.0.1:61573 - "GET /api/trends HTTP/1.1" 200 OK
+1. Researching: 비트코인 신고가...
+2. Generating HTML with researched context...
+INFO:     127.0.0.1:61573 - "POST /api/generate_html HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61567 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61570 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61571 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61626 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61571 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61567 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61626 - "GET /api/history HTTP/1.1" 200 OK
+Trend Error: The request failed: Google returned a response with code 404
+INFO:     127.0.0.1:61573 - "GET /api/trends HTTP/1.1" 200 OK
+Trend Error: The request failed: Google returned a response with code 404
+INFO:     127.0.0.1:61566 - "GET /api/trends HTTP/1.1" 200 OK
+Trend Error: The request failed: Google returned a response with code 404
+INFO:     127.0.0.1:61570 - "GET /api/trends HTTP/1.1" 200 OK
+Trend Error: The request failed: Google returned a response with code 404
+INFO:     127.0.0.1:61573 - "GET /api/trends HTTP/1.1" 200 OK
+Trend Error: The request failed: Google returned a response with code 404
+INFO:     127.0.0.1:61793 - "GET /api/trends HTTP/1.1" 200 OK
+Trend Error: The request failed: Google returned a response with code 404
+INFO:     127.0.0.1:61806 - "GET /api/trends HTTP/1.1" 200 OK
+Trend Error: The request failed: Google returned a response with code 404
+INFO:     127.0.0.1:61819 - "GET /api/trends HTTP/1.1" 200 OK
+Trend Error: The request failed: Google returned a response with code 404
+INFO:     127.0.0.1:61856 - "GET /api/trends HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61865 - "OPTIONS /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61865 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61870 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61872 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61873 - "OPTIONS /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61865 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61870 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61873 - "GET /api/me HTTP/1.1" 200 OK
+Trend Error: The request failed: Google returned a response with code 404
+INFO:     127.0.0.1:61869 - "GET /api/trends HTTP/1.1" 200 OK
+Trend Error: The request failed: Google returned a response with code 404
+INFO:     127.0.0.1:61870 - "GET /api/trends HTTP/1.1" 200 OK
+Trend Error: The request failed: Google returned a response with code 404
+INFO:     127.0.0.1:61893 - "GET /api/trends HTTP/1.1" 200 OK
+Trend Error: The request failed: Google returned a response with code 404
+INFO:     127.0.0.1:61990 - "GET /api/trends HTTP/1.1" 200 OK
+Trend Error: The request failed: Google returned a response with code 404
+INFO:     127.0.0.1:62081 - "GET /api/trends HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62096 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62096 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62101 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62102 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62104 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62096 - "GET /api/health HTTP/1.1" 200 OK
+Trend Error: The request failed: Google returned a response with code 404
+INFO:     127.0.0.1:62100 - "GET /api/trends HTTP/1.1" 200 OK
+Trend Error: The request failed: Google returned a response with code 404
+INFO:     127.0.0.1:62104 - "GET /api/trends HTTP/1.1" 200 OK
+Trend Error: The request failed: Google returned a response with code 404
+INFO:     127.0.0.1:62126 - "GET /api/trends HTTP/1.1" 200 OK
+Trend Error: The request failed: Google returned a response with code 404
+INFO:     127.0.0.1:62172 - "GET /api/trends HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62185 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62190 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62191 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62193 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62185 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62191 - "GET /api/health HTTP/1.1" 200 OK
+Trend Error: The request failed: Google returned a response with code 404
+INFO:     127.0.0.1:62189 - "GET /api/trends HTTP/1.1" 200 OK
+Trend Error: The request failed: Google returned a response with code 404
+INFO:     127.0.0.1:62191 - "GET /api/trends HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62195 - "OPTIONS /api/generate_html HTTP/1.1" 200 OK
+1. Researching: 2026 부동산 전망...
+2. Generating HTML with researched context...
+INFO:     127.0.0.1:62195 - "POST /api/generate_html HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62195 - "GET /api/history HTTP/1.1" 200 OK
+Trend Error: The request failed: Google returned a response with code 404
+INFO:     127.0.0.1:62274 - "GET /api/trends HTTP/1.1" 200 OK
+Trend Error: The request failed: Google returned a response with code 404
+INFO:     127.0.0.1:62257 - "GET /api/trends HTTP/1.1" 200 OK
+Trend Error: The request failed: Google returned a response with code 404
+INFO:     127.0.0.1:62234 - "GET /api/trends HTTP/1.1" 200 OK
+Trend Error: The request failed: Google returned a response with code 404
+INFO:     127.0.0.1:62257 - "GET /api/trends HTTP/1.1" 200 OK
+Trend Error: The request failed: Google returned a response with code 404
+INFO:     127.0.0.1:62297 - "GET /api/trends HTTP/1.1" 200 OK
+Trend Error: The request failed: Google returned a response with code 404
+INFO:     127.0.0.1:62308 - "GET /api/trends HTTP/1.1" 200 OK
+Trend Error: The request failed: Google returned a response with code 404
+INFO:     127.0.0.1:62321 - "GET /api/trends HTTP/1.1" 200 OK
+Trend Error: The request failed: Google returned a response with code 404
+INFO:     127.0.0.1:62344 - "GET /api/trends HTTP/1.1" 200 OK
+Trend Error: The request failed: Google returned a response with code 404
+INFO:     127.0.0.1:62368 - "GET /api/trends HTTP/1.1" 200 OK
+Trend Error: The request failed: Google returned a response with code 404
+INFO:     127.0.0.1:62383 - "GET /api/trends HTTP/1.1" 200 OK
+Trend Error: The request failed: Google returned a response with code 404
+INFO:     127.0.0.1:62397 - "GET /api/trends HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62416 - "OPTIONS /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62416 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62421 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62423 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62424 - "OPTIONS /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62416 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62424 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62426 - "GET /api/health HTTP/1.1" 200 OK
+Trend Error: The request failed: Google returned a response with code 404
+INFO:     127.0.0.1:62419 - "GET /api/trends HTTP/1.1" 200 OK
+Trend Error: The request failed: Google returned a response with code 404
+INFO:     127.0.0.1:62426 - "GET /api/trends HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62445 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62447 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62445 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62449 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62451 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62447 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62460 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62463 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62464 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62460 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62464 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62466 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62464 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62466 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62460 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62463 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62464 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62460 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62468 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62485 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62468 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62487 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62489 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62485 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62485 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62489 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62468 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62487 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62485 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62468 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62520 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62521 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62520 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62522 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62524 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62520 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62527 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62561 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62562 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62563 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62569 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62571 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62572 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62569 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62574 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62571 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62576 - "OPTIONS /api/generate_html HTTP/1.1" 200 OK
+1. Researching: 오늘 경제 뉴스 탑 1개 
+...
+2. Generating HTML with researched context...
+INFO:     127.0.0.1:62576 - "POST /api/generate_html HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62622 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62576 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62623 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62622 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62624 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62631 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62632 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62576 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62624 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62623 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62622 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62631 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62632 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62699 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62701 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62699 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62702 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62704 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62702 - "GET /api/health HTTP/1.1" 200 OK
+1. Researching: 인기 생성형 ai top 5...
+2. Generating HTML with researched context...
+Subprocess Error: [INFO] ✅ 예시 HTML 로드 완료
+[INFO] Gemini (1.5-flash) generating...
+[WARN] gemini-1.5-flash failed: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}
+[WARN] gemini-2.0-flash-lite failed: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.0-flash-lite\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash-lite\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash-lite\nPlease retry in 53.670554972s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_input_token_count', 'quotaId': 'GenerateContentInputTokensPerModelPerMinute-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.0-flash-lite'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerMinutePerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.0-flash-lite'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.0-flash-lite'}}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '53s'}]}}
+[WARN] gemini-1.5-flash-8b failed: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-1.5-flash-8b is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}
+[WARN] gemini-1.0-pro failed: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-1.0-pro is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}
+[ERROR] 모든 AI 서비스 호출에 실패했습니다. API 키가 유효한지 확인해주세요.
+Traceback (most recent call last):
+  File "/Users/gimhuitae/Work/Instargram_card_news/execution/generate_html_from_text.py", line 285, in <module>
+    print(generate_html(args.text, args.slides, args.bg_image))
+          ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/gimhuitae/Work/Instargram_card_news/execution/generate_html_from_text.py", line 276, in generate_html
+    raise Exception(error_msg)
+Exception: 모든 AI 서비스 호출에 실패했습니다. API 키가 유효한지 확인해주세요.
+
+Final Error: AI 서비스 할당량이 초과되었습니다. 1분 후 다시 시도해주세요.
+INFO:     127.0.0.1:62706 - "POST /api/generate_html HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:62706 - "GET /api/history HTTP/1.1" 200 OK
+1. Researching: 인기 생성형 ai top 5...
+2. Generating HTML with researched context...
+INFO:     127.0.0.1:62751 - "POST /api/generate_html HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62751 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62798 - "OPTIONS /api/generate_html HTTP/1.1" 200 OK
+1. Researching: 인기 생성형 ai top 5...
+2. Generating HTML with researched context...
+INFO:     127.0.0.1:62798 - "POST /api/generate_html HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62823 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62826 - "OPTIONS /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62829 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62830 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62832 - "OPTIONS /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62826 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62837 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62838 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62832 - "GET /api/me HTTP/1.1" 200 OK
+1. Researching: 인기 생성형 AI TOP 5 정리해줘
+...
+2. Generating HTML with researched context...
+INFO:     127.0.0.1:62842 - "POST /api/generate_html HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62842 - "GET /api/history HTTP/1.1" 200 OK
+1. Researching: 인기 생성형 AI TOP 5 정리해줘
+...
+2. Generating HTML with researched context...
+INFO:     127.0.0.1:62894 - "POST /api/generate_html HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62894 - "GET /api/history HTTP/1.1" 200 OK
+1. Researching: 인기 생성형 AI TOP 5 정리해줘
+...
+2. Generating HTML with researched context...
+INFO:     127.0.0.1:62933 - "POST /api/generate_html HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62933 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62989 - "OPTIONS /api/generate_html HTTP/1.1" 200 OK
+1. Researching: 인기 생성형 AI TOP 5 정리해줘
+...
+2. Generating HTML with researched context...
+Subprocess Error: [INFO] ✅ 예시 HTML 로드 완료
+[INFO] Gemini (1.5-flash) generating...
+[INFO] Attempting generation with gemini-2.0-flash...
+[WARN] gemini-2.0-flash failed: name 'margin' is not defined
+[INFO] Attempting generation with gemini-2.0-flash-lite...
+[WARN] gemini-2.0-flash-lite failed: name 'margin' is not defined
+[INFO] Attempting generation with gemini-1.5-flash...
+[WARN] gemini-1.5-flash failed: name 'margin' is not defined
+[INFO] Attempting generation with gemini-3-flash...
+[WARN] gemini-3-flash failed: name 'margin' is not defined
+[INFO] Attempting generation with gemini-2.5-flash...
+[WARN] gemini-2.5-flash failed: name 'margin' is not defined
+[INFO] Attempting generation with gemini-1.5-pro...
+[WARN] gemini-1.5-pro failed: name 'margin' is not defined
+[ERROR] 모든 AI 서비스 호출에 실패했습니다. API 키가 유효한지 확인해주세요.
+Traceback (most recent call last):
+  File "/Users/gimhuitae/Work/Instargram_card_news/execution/generate_html_from_text.py", line 300, in <module>
+    print(generate_html(args.text, args.slides, args.bg_image))
+          ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/gimhuitae/Work/Instargram_card_news/execution/generate_html_from_text.py", line 291, in generate_html
+    raise Exception(error_msg)
+Exception: 모든 AI 서비스 호출에 실패했습니다. API 키가 유효한지 확인해주세요.
+
+Final Error: Exception: 모든 AI 서비스 호출에 실패했습니다. API 키가 유효한지 확인해주세요.
+INFO:     127.0.0.1:62989 - "POST /api/generate_html HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:62989 - "GET /api/history HTTP/1.1" 200 OK
+1. Researching: 인기 생성형 AI TOP 5 정리해줘
+...
+2. Generating HTML with researched context...
+Subprocess Error: [INFO] ✅ 예시 HTML 로드 완료
+[INFO] Gemini (1.5-flash) generating...
+[INFO] Attempting generation with gemini-2.0-flash...
+[WARN] gemini-2.0-flash failed: name 'margin' is not defined
+[INFO] Attempting generation with gemini-2.0-flash-lite...
+[WARN] gemini-2.0-flash-lite failed: name 'margin' is not defined
+[INFO] Attempting generation with gemini-1.5-flash...
+[WARN] gemini-1.5-flash failed: name 'margin' is not defined
+[INFO] Attempting generation with gemini-3-flash...
+[WARN] gemini-3-flash failed: name 'margin' is not defined
+[INFO] Attempting generation with gemini-2.5-flash...
+[WARN] gemini-2.5-flash failed: name 'margin' is not defined
+[INFO] Attempting generation with gemini-1.5-pro...
+[WARN] gemini-1.5-pro failed: name 'margin' is not defined
+[ERROR] 모든 AI 서비스 호출에 실패했습니다. API 키가 유효한지 확인해주세요.
+Traceback (most recent call last):
+  File "/Users/gimhuitae/Work/Instargram_card_news/execution/generate_html_from_text.py", line 300, in <module>
+    print(generate_html(args.text, args.slides, args.bg_image))
+          ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/gimhuitae/Work/Instargram_card_news/execution/generate_html_from_text.py", line 291, in generate_html
+    raise Exception(error_msg)
+Exception: 모든 AI 서비스 호출에 실패했습니다. API 키가 유효한지 확인해주세요.
+
+Final Error: Exception: 모든 AI 서비스 호출에 실패했습니다. API 키가 유효한지 확인해주세요.
+INFO:     127.0.0.1:62989 - "POST /api/generate_html HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:62989 - "GET /api/history HTTP/1.1" 200 OK
+1. Researching: 인기 생성형 AI TOP 5 정리해줘
+...
+2. Generating HTML with researched context...
+INFO:     127.0.0.1:63030 - "POST /api/generate_html HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63042 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63046 - "OPTIONS /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63049 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63051 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63052 - "OPTIONS /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63057 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63058 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63066 - "OPTIONS /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63070 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63066 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63071 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63052 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63072 - "OPTIONS /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63046 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63072 - "GET /api/me HTTP/1.1" 200 OK
+1. Researching: 인기 생성형 ai top 5 소개 카드 뉴스 만들어줘
+...
+2. Generating HTML with researched context...
+Subprocess Error: [INFO] ✅ 예시 HTML 로드 완료
+[INFO] Gemini (1.5-flash) generating...
+[INFO] Attempting generation with gemini-2.0-flash...
+[WARN] gemini-2.0-flash failed: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.0-flash\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash\nPlease retry in 39.434902152s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_input_token_count', 'quotaId': 'GenerateContentInputTokensPerModelPerMinute-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.0-flash'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerMinutePerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.0-flash'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.0-flash'}}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '39s'}]}}
+[INFO] Attempting generation with gemini-2.0-flash-lite...
+[WARN] gemini-2.0-flash-lite failed: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.0-flash-lite\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash-lite\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash-lite\nPlease retry in 39.291995521s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_input_token_count', 'quotaId': 'GenerateContentInputTokensPerModelPerMinute-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.0-flash-lite'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerMinutePerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.0-flash-lite'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.0-flash-lite'}}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '39s'}]}}
+[INFO] Attempting generation with gemini-1.5-flash...
+[WARN] gemini-1.5-flash failed: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}
+[INFO] Attempting generation with gemini-1.5-pro...
+[WARN] gemini-1.5-pro failed: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-1.5-pro is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}
+[ERROR] 모든 AI 서비스 호출에 실패했습니다. API 키가 유효한지 확인해주세요.
+Traceback (most recent call last):
+  File "/Users/gimhuitae/Work/Instargram_card_news/execution/generate_html_from_text.py", line 299, in <module>
+    print(generate_html(args.text, args.slides, args.bg_image))
+          ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/gimhuitae/Work/Instargram_card_news/execution/generate_html_from_text.py", line 290, in generate_html
+    raise Exception(error_msg)
+Exception: 모든 AI 서비스 호출에 실패했습니다. API 키가 유효한지 확인해주세요.
+
+Final Error: AI 서비스 할당량이 초과되었습니다. 1분 후 다시 시도해주세요.
+INFO:     127.0.0.1:63080 - "POST /api/generate_html HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:63080 - "GET /api/history HTTP/1.1" 200 OK
+1. Researching: 인기 생성형 AI TOP 5 정리해줘
+...
+2. Generating HTML with researched context...
+Subprocess Error: [INFO] ✅ 예시 HTML 로드 완료
+[INFO] Gemini (1.5-flash) generating...
+[INFO] Attempting generation with gemini-2.0-flash...
+[WARN] gemini-2.0-flash failed: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.0-flash\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash\nPlease retry in 9.990026623s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_input_token_count', 'quotaId': 'GenerateContentInputTokensPerModelPerMinute-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.0-flash'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerMinutePerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.0-flash'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.0-flash'}}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '9s'}]}}
+[INFO] Attempting generation with gemini-2.0-flash-lite...
+[WARN] gemini-2.0-flash-lite failed: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.0-flash-lite\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash-lite\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash-lite\nPlease retry in 9.86899428s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_input_token_count', 'quotaId': 'GenerateContentInputTokensPerModelPerMinute-FreeTier', 'quotaDimensions': {'model': 'gemini-2.0-flash-lite', 'location': 'global'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerMinutePerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.0-flash-lite'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'model': 'gemini-2.0-flash-lite', 'location': 'global'}}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '9s'}]}}
+[INFO] Attempting generation with gemini-1.5-flash...
+[WARN] gemini-1.5-flash failed: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}
+[INFO] Attempting generation with gemini-1.5-flash-8b...
+[WARN] gemini-1.5-flash-8b failed: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-1.5-flash-8b is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}
+[INFO] Attempting generation with gemini-2.0-pro-exp-02-05...
+[WARN] gemini-2.0-pro-exp-02-05 failed: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-2.0-pro-exp-02-05 is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}
+[INFO] Attempting generation with gemini-1.5-pro...
+[WARN] gemini-1.5-pro failed: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-1.5-pro is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}
+[ERROR] 모든 AI 서비스 호출에 실패했습니다. API 키가 유효한지 확인해주세요.
+Traceback (most recent call last):
+  File "/Users/gimhuitae/Work/Instargram_card_news/execution/generate_html_from_text.py", line 301, in <module>
+    print(generate_html(args.text, args.slides, args.bg_image))
+          ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/gimhuitae/Work/Instargram_card_news/execution/generate_html_from_text.py", line 292, in generate_html
+    raise Exception(error_msg)
+Exception: 모든 AI 서비스 호출에 실패했습니다. API 키가 유효한지 확인해주세요.
+
+Final Error: AI 서비스 할당량이 초과되었습니다. 1분 후 다시 시도해주세요.
+INFO:     127.0.0.1:63114 - "POST /api/generate_html HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:63114 - "GET /api/history HTTP/1.1" 200 OK
+1. Researching: 인기 생성형 AI TOP 5 정리해줘
+...
+2. Generating HTML with researched context...
+Subprocess Error: [INFO] ✅ 예시 HTML 로드 완료
+[INFO] Gemini (1.5-flash) generating...
+[INFO] Attempting generation with gemini-2.0-flash...
+[WARN] gemini-2.0-flash failed: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.0-flash\nPlease retry in 51.645169858s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.0-flash'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerMinutePerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.0-flash'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_input_token_count', 'quotaId': 'GenerateContentInputTokensPerModelPerMinute-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.0-flash'}}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '51s'}]}}
+[INFO] Attempting generation with gemini-2.0-flash-lite...
+[WARN] gemini-2.0-flash-lite failed: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash-lite\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash-lite\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.0-flash-lite\nPlease retry in 51.538002838s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'model': 'gemini-2.0-flash-lite', 'location': 'global'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerMinutePerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.0-flash-lite'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_input_token_count', 'quotaId': 'GenerateContentInputTokensPerModelPerMinute-FreeTier', 'quotaDimensions': {'model': 'gemini-2.0-flash-lite', 'location': 'global'}}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '51s'}]}}
+[INFO] Attempting generation with gemini-1.5-flash...
+[WARN] gemini-1.5-flash failed: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}
+[INFO] Attempting generation with gemini-1.5-flash-8b...
+[WARN] gemini-1.5-flash-8b failed: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-1.5-flash-8b is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}
+[INFO] Attempting generation with gemini-2.0-pro-exp-02-05...
+[WARN] gemini-2.0-pro-exp-02-05 failed: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-2.0-pro-exp-02-05 is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}
+[INFO] Attempting generation with gemini-1.5-pro...
+[WARN] gemini-1.5-pro failed: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-1.5-pro is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}
+[ERROR] 모든 AI 서비스 호출에 실패했습니다. API 키가 유효한지 확인해주세요.
+Traceback (most recent call last):
+  File "/Users/gimhuitae/Work/Instargram_card_news/execution/generate_html_from_text.py", line 301, in <module>
+    print(generate_html(args.text, args.slides, args.bg_image))
+          ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/gimhuitae/Work/Instargram_card_news/execution/generate_html_from_text.py", line 292, in generate_html
+    raise Exception(error_msg)
+Exception: 모든 AI 서비스 호출에 실패했습니다. API 키가 유효한지 확인해주세요.
+
+Final Error: AI 서비스 할당량이 초과되었습니다. 1분 후 다시 시도해주세요.
+INFO:     127.0.0.1:63121 - "POST /api/generate_html HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:63121 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63174 - "OPTIONS /api/generate_html HTTP/1.1" 200 OK
+1. Researching: 인기 생성형 AI TOP 5 정리해줘
+...
+2. Generating HTML with researched context...
+INFO:     127.0.0.1:63174 - "POST /api/generate_html HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63174 - "GET /api/history HTTP/1.1" 200 OK
+1. Researching: 인기 생성형 AI TOP 5 정리해줘
+...
+2. Generating HTML with researched context...
+INFO:     127.0.0.1:63216 - "POST /api/generate_html HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63216 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63216 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63238 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63239 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63251 - "OPTIONS /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63252 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63253 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63251 - "GET /api/me HTTP/1.1" 200 OK
+1. Researching: 인기 생성형 AI TOP 5 정리해줘
+...
+2. Generating HTML with researched context...
+Subprocess Error:   File "/Users/gimhuitae/Work/Instargram_card_news/execution/generate_html_from_text.py", line 61
+    - GLASSMORPISM: Use `background: rgba(255,255,255,0.05); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1);` for UI cards.
+                                                                                    ^
+SyntaxError: invalid decimal literal
+
+Final Error: SyntaxError: invalid decimal literal
+INFO:     127.0.0.1:63284 - "POST /api/generate_html HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:63284 - "GET /api/history HTTP/1.1" 200 OK
+1. Researching: 인기 생성형 AI TOP 5 정리해줘
+...
+2. Generating HTML with researched context...
+Subprocess Error:   File "/Users/gimhuitae/Work/Instargram_card_news/execution/generate_html_from_text.py", line 61
+    - GLASSMORPISM: Use `background: rgba(255,255,255,0.05); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1);` for UI cards.
+                                                                                    ^
+SyntaxError: invalid decimal literal
+
+Final Error: SyntaxError: invalid decimal literal
+INFO:     127.0.0.1:63291 - "POST /api/generate_html HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:63291 - "GET /api/history HTTP/1.1" 200 OK
+1. Researching: 인기 생성형 AI TOP 5 정리해줘
+...
+2. Generating HTML with researched context...
+INFO:     127.0.0.1:63319 - "POST /api/generate_html HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63319 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63378 - "OPTIONS /api/generate_html HTTP/1.1" 200 OK
+1. Researching: 인기 생성형 AI TOP 5 정리해줘
+...
+2. Generating HTML with researched context...
+INFO:     127.0.0.1:63378 - "POST /api/generate_html HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63378 - "GET /api/history HTTP/1.1" 200 OK
+1. Researching: 인기 생성형 AI TOP 5 정리해줘
+...
+2. Generating HTML with researched context...
+INFO:     127.0.0.1:63392 - "POST /api/generate_html HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63392 - "GET /api/history HTTP/1.1" 200 OK
+1. Researching: 인기 생성형 AI TOP 5 정리해줘
+...
+2. Generating HTML with researched context...
+INFO:     127.0.0.1:63420 - "POST /api/generate_html HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63420 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63449 - "OPTIONS /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63450 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63449 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63451 - "GET /api/health HTTP/1.1" 200 OK
+1. Researching: 인기 생성형 AI TOP 5 정리해줘
+...
+2. Generating HTML with researched context...
+INFO:     127.0.0.1:63455 - "POST /api/generate_html HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63455 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63472 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63473 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63474 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63484 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63485 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63486 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63499 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63500 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63501 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63517 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63519 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63517 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63521 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63523 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63521 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63525 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63533 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63534 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63544 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63545 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63546 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63574 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63575 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63576 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63583 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63585 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63583 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63587 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63589 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63585 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63605 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63606 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63607 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63618 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63619 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63620 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63632 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63633 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63634 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63653 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63654 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63655 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63668 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63669 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63670 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63691 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63692 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63693 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63701 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63704 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63701 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63705 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63707 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63704 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63722 - "OPTIONS /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63723 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63722 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63724 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63750 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63751 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63752 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63761 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63762 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63763 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63771 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63772 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63773 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63798 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63799 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63800 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63812 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63814 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63816 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63812 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63818 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63816 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63820 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63832 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63833 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63843 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63844 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63845 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63902 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63903 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63904 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63934 - "OPTIONS /api/generate_html HTTP/1.1" 200 OK
+1. Researching: 인기 생성형 AI TOP 5 정리해줘
+...
+2. Generating HTML with researched context...
+INFO:     127.0.0.1:63934 - "POST /api/generate_html HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63950 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63993 - "OPTIONS /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63995 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63993 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63998 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63999 - "OPTIONS /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64001 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63995 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63999 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64011 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64012 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64011 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64014 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64016 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64012 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64035 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64038 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64035 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64039 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64041 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64038 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64049 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64050 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64051 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64072 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64074 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64076 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64072 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64078 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64076 - "GET /api/health HTTP/1.1" 200 OK
+1. Researching: 인기 생성형 AI TOP 5 정리해줘
+...
+2. Generating HTML with researched context...
+Subprocess Error: [INFO] ✅ 예시 HTML 로드 완료
+[INFO] ✅ 학습된 디자인 노하우 로드 완료
+[INFO] ✅ 바이럴 카드뉴스 공식 로드 완료
+[INFO] ✅ 디자인 스펙 로드 완료
+[INFO] Gemini (1.5-flash) generating...
+[INFO] Attempting generation with gemini-flash-latest...
+[WARN] gemini-flash-latest failed: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3-flash\nPlease retry in 41.977516586s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-3-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '41s'}]}}
+[INFO] Attempting generation with gemini-flash-lite-latest...
+[WARN] gemini-flash-lite-latest failed: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash-lite\nPlease retry in 41.828597156s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'model': 'gemini-2.5-flash-lite', 'location': 'global'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '41s'}]}}
+[INFO] Attempting generation with gemini-2.5-flash-lite...
+[WARN] gemini-2.5-flash-lite failed: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash-lite\nPlease retry in 41.720006695s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'model': 'gemini-2.5-flash-lite', 'location': 'global'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '41s'}]}}
+[INFO] Attempting generation with gemini-3-flash-preview...
+[WARN] gemini-3-flash-preview failed: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3-flash\nPlease retry in 41.6091423s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-3-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '41s'}]}}
+[INFO] Attempting generation with gemini-pro-latest...
+[WARN] gemini-pro-latest failed: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-3-pro\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-3-pro\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-3-pro\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-3-pro\nPlease retry in 41.496797768s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_input_token_count', 'quotaId': 'GenerateContentInputTokensPerModelPerMinute-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-3-pro'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerMinutePerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-3-pro'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-3-pro'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_input_token_count', 'quotaId': 'GenerateContentInputTokensPerModelPerDay-FreeTier', 'quotaDimensions': {'model': 'gemini-3-pro', 'location': 'global'}}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '41s'}]}}
+[INFO] Attempting generation with gemini-3.1-pro-preview...
+[WARN] gemini-3.1-pro-preview failed: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-3.1-pro\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-3.1-pro\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-3.1-pro\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-3.1-pro\nPlease retry in 41.371829383s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_input_token_count', 'quotaId': 'GenerateContentInputTokensPerModelPerMinute-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-3.1-pro'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerMinutePerProjectPerModel-FreeTier', 'quotaDimensions': {'model': 'gemini-3.1-pro', 'location': 'global'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-3.1-pro'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_input_token_count', 'quotaId': 'GenerateContentInputTokensPerModelPerDay-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-3.1-pro'}}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '41s'}]}}
+[ERROR] 모든 AI 서비스 호출에 실패했습니다. API 키가 유효한지 확인해주세요.
+Traceback (most recent call last):
+  File "/Users/gimhuitae/Work/Instargram_card_news/execution/generate_html_from_text.py", line 357, in <module>
+    print(generate_html(args.text, args.slides, args.bg_image))
+          ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/gimhuitae/Work/Instargram_card_news/execution/generate_html_from_text.py", line 348, in generate_html
+    raise Exception(error_msg)
+Exception: 모든 AI 서비스 호출에 실패했습니다. API 키가 유효한지 확인해주세요.
+
+Final Error: AI 서비스 할당량이 초과되었습니다. 1분 후 다시 시도해주세요.
+INFO:     127.0.0.1:64080 - "POST /api/generate_html HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:64080 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64097 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64100 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64097 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64101 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64103 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64101 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64105 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64115 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64105 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64117 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64119 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64105 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64119 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64105 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64115 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64117 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64119 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64121 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64126 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64127 - "OPTIONS /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64128 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64127 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64127 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64128 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64126 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64135 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64138 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64135 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64139 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64141 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64139 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64157 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64158 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64159 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64163 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64164 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64165 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64176 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64177 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64178 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64191 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64192 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64193 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64201 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64202 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64203 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64217 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64218 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64219 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64226 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64227 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64228 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64252 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64253 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64254 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64252 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64254 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64256 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64258 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64264 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64265 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64271 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64272 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64273 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64297 - "OPTIONS /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64299 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64300 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64297 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64301 - "OPTIONS /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64300 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64303 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64300 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64305 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64310 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64305 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64311 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64313 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64310 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64321 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64322 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64323 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64377 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64379 - "OPTIONS /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64377 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64381 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64379 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64383 - "OPTIONS /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64381 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64383 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64410 - "OPTIONS /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64412 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64410 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64414 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64415 - "OPTIONS /api/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64417 - "GET /api/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64410 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64415 - "GET /api/me HTTP/1.1" 200 OK
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [31338]
