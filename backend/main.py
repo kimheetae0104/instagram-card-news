@@ -55,9 +55,12 @@ oauth.register(
     }
 )
 
+IS_PRODUCTION = bool(BACKEND_URL and BACKEND_URL.startswith("https"))
 app.add_middleware(
-    SessionMiddleware, 
-    secret_key=SECRET_KEY
+    SessionMiddleware,
+    secret_key=SECRET_KEY,
+    https_only=IS_PRODUCTION,
+    same_site="none" if IS_PRODUCTION else "lax",
 )
 
 app.add_middleware(
