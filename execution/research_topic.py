@@ -37,13 +37,12 @@ def research_topic(topic, api_key=None):
         All content must be in KOREAN. Do not provide 2024/2025 info unless it's for comparison. Focus on the NEWEST stuff that just came out.
         """
         
-        # 할당량 분산을 위해 실제 가용 모델 리스트 사용
+        # 실제로 존재하는 Gemini 모델 ID만 사용 (2026-02 기준)
         models = [
             "gemini-2.0-flash",
-            "gemini-2.5-flash",
             "gemini-2.0-flash-lite",
-            "gemini-pro-latest",
-            "gemini-flash-latest"
+            "gemini-1.5-flash",
+            "gemini-1.5-pro",
         ]
         for model_id in models:
             try:

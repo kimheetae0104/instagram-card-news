@@ -4,6 +4,8 @@ import shutil
 import glob
 import subprocess
 import json
+import base64
+import hashlib
 from fastapi import FastAPI, UploadFile, File, HTTPException, Form, Depends
 from fastapi.responses import JSONResponse, FileResponse
 from fastapi.middleware.cors import CORSMiddleware
@@ -19,6 +21,7 @@ import httpx
 from fastapi.staticfiles import StaticFiles
 import xml.etree.ElementTree as ET
 from pytrends.request import TrendReq
+from cryptography.fernet import Fernet
 
 # 부모 디렉토리를 Python 경로에 추가
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -43,6 +46,29 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24 # 1 Day
 GOOGLE_CLIENT_ID = os.environ.get("GOOGLE_CLIENT_ID")
 GOOGLE_CLIENT_SECRET = os.environ.get("GOOGLE_CLIENT_SECRET")
 BACKEND_URL = os.environ.get("BACKEND_URL", "").rstrip("/")
+
+# ── API 키 암호화 (Fernet 대칭키) ──────────────────────────────────────────
+# ENCRYPTION_KEY 환경변수가 없으면 SECRET_KEY를 32바이트 해시로 변환해 사용
+_raw_enc_key = os.environ.get("ENCRYPTION_KEY", SECRET_KEY)
+_fernet_key = base64.urlsafe_b64encode(hashlib.sha256(_raw_enc_key.encode()).digest())
+_fernet = Fernet(_fernet_key)
+
+def encrypt_key(plain: str) -> str:
+    """API 키를 Fernet으로 암호화해 문자열 반환"""
+    if not plain:
+        return ""
+    return _fernet.encrypt(plain.encode()).decode()
+
+def decrypt_key(token: str) -> str:
+    """Fernet으로 암호화된 토큰을 복호화"""
+    if not token:
+        return ""
+    try:
+        return _fernet.decrypt(token.encode()).decode()
+    except Exception:
+        # 이미 평문(구버전 데이터)이거나 복호화 실패 시 그대로 반환
+        return token
+# ──────────────────────────────────────────────────────────────────────────
 
 oauth = OAuth()
 oauth.register(
@@ -197,28 +223,49 @@ def load_settings():
         print(f"Settings load error: {e}")
     return {}
 
-def save_user_settings(email, settings):
+def save_user_settings(email, settings: dict):
+    """API 키를 암호화해서 저장"""
     all_settings = load_settings()
-    all_settings[email] = settings
+    encrypted = {}
+    for k, v in settings.items():
+        encrypted[k] = encrypt_key(v) if v else ""
+    all_settings[email] = encrypted
     with open(SETTINGS_FILE, "w", encoding="utf-8") as f:
         json.dump(all_settings, f, ensure_ascii=False, indent=2)
+
+def get_decrypted_settings(email: str) -> dict:
+    """저장된 암호화 키를 복호화해서 반환"""
+    all_settings = load_settings()
+    user_settings = all_settings.get(email, {})
+    return {
+        "gemini_api_key": decrypt_key(user_settings.get("gemini_api_key", "")),
+        "claude_api_key": decrypt_key(user_settings.get("claude_api_key", "")),
+        "openai_api_key": decrypt_key(user_settings.get("openai_api_key", "")),
+    }
 
 class UserSettings(BaseModel):
     gemini_api_key: Optional[str] = None
     claude_api_key: Optional[str] = None
     openai_api_key: Optional[str] = None
-    deepseek_api_key: Optional[str] = None
+
+def _mask(key: str) -> str:
+    """프론트엔드 표시용 마스킹 — 앞 6자리만 노출"""
+    if not key or len(key) < 8:
+        return "****" if key else ""
+    return key[:6] + "****"
 
 @app.get("/api/user/settings")
 async def get_user_settings_endpoint(user: dict = Depends(get_current_user)):
-    all_settings = load_settings()
-    user_settings = all_settings.get(user["email"], {})
-    # Return masked keys for security, or just indicators
+    dec = get_decrypted_settings(user["email"])
+    # 프론트엔드에는 마스킹된 값만 반환 (실제 키는 노출 안 함)
     return {
-        "gemini_api_key": user_settings.get("gemini_api_key", ""),
-        "claude_api_key": user_settings.get("claude_api_key", ""),
-        "openai_api_key": user_settings.get("openai_api_key", ""),
-        "deepseek_api_key": user_settings.get("deepseek_api_key", "")
+        "gemini_api_key": _mask(dec["gemini_api_key"]),
+        "claude_api_key": _mask(dec["claude_api_key"]),
+        "openai_api_key": _mask(dec["openai_api_key"]),
+        # 키 존재 여부 플래그 (UI에서 "저장됨" 표시용)
+        "gemini_set": bool(dec["gemini_api_key"]),
+        "claude_set": bool(dec["claude_api_key"]),
+        "openai_set": bool(dec["openai_api_key"]),
     }
 
 @app.post("/api/user/settings")
@@ -298,38 +345,36 @@ class GenerateHtmlRequest(BaseModel):
     gemini_api_key: Optional[str] = None
     claude_api_key: Optional[str] = None
     openai_api_key: Optional[str] = None
-    deepseek_api_key: Optional[str] = None
 
 @app.post("/api/generate_html")
 async def generate_html_endpoint(request: GenerateHtmlRequest, request_raw: Request):
     try:
-        # Get stored keys if not provided in request
-        stored_keys = {}
+        # 저장된 키(복호화)를 우선 사용, 요청에 포함된 키는 fallback
+        stored_keys = {"gemini_api_key": "", "claude_api_key": "", "openai_api_key": ""}
         auth_header = request_raw.headers.get("Authorization")
         if auth_header:
             try:
                 user = await get_current_user(request_raw)
-                stored_keys = load_settings().get(user["email"], {})
+                stored_keys = get_decrypted_settings(user["email"])
             except:
                 pass
 
-        gemini_key = request.gemini_api_key or stored_keys.get("gemini_api_key")
-        claude_key = request.claude_api_key or stored_keys.get("claude_api_key")
-        openai_key = request.openai_api_key or stored_keys.get("openai_api_key")
-        deepseek_key = request.deepseek_api_key or stored_keys.get("deepseek_api_key")
+        # 서버에 저장된 키 우선, 없으면 요청에 포함된 키(localStorage fallback) 사용
+        gemini_key = stored_keys.get("gemini_api_key") or request.gemini_api_key
+        claude_key = stored_keys.get("claude_api_key") or request.claude_api_key
+        openai_key = stored_keys.get("openai_api_key") or request.openai_api_key
 
         print(f"1. Researching: {request.text[:50]}...")
         expanded_text = research_topic(request.text, api_key=gemini_key)
-        
+
         print(f"2. Generating HTML with researched context...")
         html_content = generate_html(
-            text=expanded_text, 
-            slides=request.slide_count, 
+            text=expanded_text,
+            slides=request.slide_count,
             bg_image=request.bg_image_url,
             gemini_key=gemini_key,
             claude_key=claude_key,
             openai_key=openai_key,
-            deepseek_key=deepseek_key
         )
         
         # Save to history

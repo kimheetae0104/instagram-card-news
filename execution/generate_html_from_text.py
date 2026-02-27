@@ -179,16 +179,13 @@ def generate_with_gemini(text, slides=5, bg_image=None, api_key=None):
         print(f"[INFO] Gemini (1.5-flash) generating...", file=sys.stderr)
         client = genai.Client(api_key=key)
         
-        # 최신 모델 우선순위 반영 (사용자 제공 리스트 기반)
-        # 존재하지 않는 모델 ID는 즉시 실패하므로 로그로 확인 가능하게 함
-        # 실제로 가용한 모델 ID 리스트 (404 예방)
+        # 실제로 존재하는 Gemini 모델 ID만 사용 (2026-02 기준)
+        # 존재하지 않는 모델 ID는 에러를 유발해 다른 provider 폴백을 막음
         models_to_try = [
             "gemini-2.0-flash",
-            "gemini-2.5-flash",
             "gemini-2.0-flash-lite",
-            "gemini-pro-latest",
-            "gemini-flash-latest",
-            "gemini-3-flash-preview"
+            "gemini-1.5-flash",
+            "gemini-1.5-pro",
         ]
         
         last_error_details = ""
@@ -270,29 +267,7 @@ def generate_with_openai(text, slides=5, bg_image=None, api_key=None):
         print(f"[ERROR] OpenAI error: {e}", file=sys.stderr)
         return None
 
-def generate_with_deepseek(text, slides=5, bg_image=None, api_key=None):
-    if not api_key:
-        return None
-    try:
-        print(f"[INFO] DeepSeek (chat) generating...", file=sys.stderr)
-        prompt = build_prompt(text, slides, bg_image)
-        headers = {
-            "Authorization": f"Bearer {api_key}",
-            "Content-Type": "application/json"
-        }
-        data = {
-            "model": "deepseek-chat",
-            "messages": [{"role": "user", "content": prompt}],
-            "stream": False
-        }
-        # DeepSeek API endpoint may vary, common one used here
-        response = httpx.post("https://api.deepseek.com/chat/completions", headers=headers, json=data, timeout=120.0)
-        response.raise_for_status()
-        content = response.json()["choices"][0]["message"]["content"]
-        return extract_html(content)
-    except Exception as e:
-        print(f"[ERROR] DeepSeek error: {e}", file=sys.stderr)
-        return None
+# DeepSeek removed
 
 def extract_html(raw):
     try:
@@ -312,41 +287,44 @@ def extract_html(raw):
 
 def generate_html(text, slides=5, bg_image=None, gemini_key=None, claude_key=None, openai_key=None, deepseek_key=None):
     # 우선순위: 제미나이 -> 클로드 -> 오픈AI -> 딥시크
-    
+    # 각 provider는 독립적으로 try/except 처리 → 하나 실패해도 다음 provider로 폴백
+
     # 1. GEMINI
     g_key = gemini_key or GEMINI_API_KEY
     if g_key:
-        html = generate_with_gemini(text, slides, bg_image, api_key=g_key)
-        if html:
-            print("[INFO] ✅ 생성 완료 (Gemini)", file=sys.stderr)
-            return html
+        try:
+            html = generate_with_gemini(text, slides, bg_image, api_key=g_key)
+            if html:
+                print("[INFO] ✅ 생성 완료 (Gemini)", file=sys.stderr)
+                return html
+        except Exception as e:
+            print(f"[WARN] Gemini 실패, 다음 provider로 폴백: {e}", file=sys.stderr)
 
     # 2. CLAUDE
     if claude_key:
-        html = generate_with_claude(text, slides, bg_image, api_key=claude_key)
-        if html:
-            print("[INFO] ✅ 생성 완료 (Claude)", file=sys.stderr)
-            return html
+        try:
+            html = generate_with_claude(text, slides, bg_image, api_key=claude_key)
+            if html:
+                print("[INFO] ✅ 생성 완료 (Claude)", file=sys.stderr)
+                return html
+        except Exception as e:
+            print(f"[WARN] Claude 실패, 다음 provider로 폴백: {e}", file=sys.stderr)
 
     # 3. OPENAI
     if openai_key:
-        html = generate_with_openai(text, slides, bg_image, api_key=openai_key)
-        if html:
-            print("[INFO] ✅ 생성 완료 (OpenAI)", file=sys.stderr)
-            return html
-
-    # 4. DEEPSEEK
-    if deepseek_key:
-        html = generate_with_deepseek(text, slides, bg_image, api_key=deepseek_key)
-        if html:
-            print("[INFO] ✅ 생성 완료 (DeepSeek)", file=sys.stderr)
-            return html
+        try:
+            html = generate_with_openai(text, slides, bg_image, api_key=openai_key)
+            if html:
+                print("[INFO] ✅ 생성 완료 (OpenAI)", file=sys.stderr)
+                return html
+        except Exception as e:
+            print(f"[WARN] OpenAI 실패, 다음 provider로 폴백: {e}", file=sys.stderr)
 
     # 모든 시도가 실패한 경우
     error_msg = "모든 AI 서비스 호출에 실패했습니다. API 키가 유효한지 확인해주세요."
-    if not any([g_key, claude_key, openai_key, deepseek_key]):
+    if not any([g_key, claude_key, openai_key]):
         error_msg = "설정된 AI API 키가 없습니다. 설정 탭에서 API 키를 입력해주세요."
-        
+
     print(f"[ERROR] {error_msg}", file=sys.stderr)
     raise Exception(error_msg)
 

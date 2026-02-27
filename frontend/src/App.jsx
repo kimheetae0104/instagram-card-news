@@ -61,11 +61,12 @@ export default function App() {
     const [geminiApiKey, setGeminiApiKey] = useState(localStorage.getItem('gemini_api_key') || '');
     const [claudeApiKey, setClaudeApiKey] = useState(localStorage.getItem('claude_api_key') || '');
     const [openaiApiKey, setOpenaiApiKey] = useState(localStorage.getItem('openai_api_key') || '');
-    const [deepseekApiKey, setDeepseekApiKey] = useState(localStorage.getItem('deepseek_api_key') || '');
+    const [geminiSaved, setGeminiSaved] = useState(false);
+    const [claudeSaved, setClaudeSaved] = useState(false);
+    const [openaiSaved, setOpenaiSaved] = useState(false);
     const [showGeminiKey, setShowGeminiKey] = useState(false);
     const [showClaudeKey, setShowClaudeKey] = useState(false);
     const [showOpenAIKey, setShowOpenAIKey] = useState(false);
-    const [showDeepSeekKey, setShowDeepSeekKey] = useState(false);
     const [showSettings, setShowSettings] = useState(false);
     // Floating toolbar state (text selection)
     const [floatingBar, setFloatingBar] = useState({ show: false, x: 0, y: 0 });
@@ -147,36 +148,39 @@ export default function App() {
             });
             const data = await response.json();
             if (data) {
-                // 서버 값이 있으면 서버 값 우선, 없으면 localStorage fallback
-                const gemini = data.gemini_api_key || localStorage.getItem('gemini_api_key') || '';
-                const claude = data.claude_api_key || localStorage.getItem('claude_api_key') || '';
-                const openai = data.openai_api_key || localStorage.getItem('openai_api_key') || '';
-                const deepseek = data.deepseek_api_key || localStorage.getItem('deepseek_api_key') || '';
-                setGeminiApiKey(gemini);
-                setClaudeApiKey(claude);
-                setOpenaiApiKey(openai);
-                setDeepseekApiKey(deepseek);
-                // 서버에 없으면 localStorage 값으로 서버 동기화 시도
-                if (!data.gemini_api_key && gemini) {
+                // 서버 저장 여부 플래그 업데이트
+                setGeminiSaved(!!data.gemini_set);
+                setClaudeSaved(!!data.claude_set);
+                setOpenaiSaved(!!data.openai_set);
+                // 입력 필드는 localStorage 값 사용 (실제 키는 서버에서 반환 안 함)
+                setGeminiApiKey(localStorage.getItem('gemini_api_key') || '');
+                setClaudeApiKey(localStorage.getItem('claude_api_key') || '');
+                setOpenaiApiKey(localStorage.getItem('openai_api_key') || '');
+                // 서버에도 없고 localStorage에도 없으면 팝업
+                const hasAnyKey = data.gemini_set || data.claude_set || data.openai_set
+                    || localStorage.getItem('gemini_api_key') || localStorage.getItem('claude_api_key') || localStorage.getItem('openai_api_key');
+                if (showPopupIfEmpty && !hasAnyKey) {
+                    setTimeout(() => setShowSettings(true), 500);
+                }
+                // 서버에 없지만 localStorage에 있으면 자동 동기화
+                const localGemini = localStorage.getItem('gemini_api_key');
+                if (!data.gemini_set && localGemini) {
                     fetch(`${BACKEND_URL}/api/user/settings`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
-                        body: JSON.stringify({ gemini_api_key: gemini, claude_api_key: claude, openai_api_key: openai, deepseek_api_key: deepseek })
+                        body: JSON.stringify({
+                            gemini_api_key: localGemini,
+                            claude_api_key: localStorage.getItem('claude_api_key') || '',
+                            openai_api_key: localStorage.getItem('openai_api_key') || '',
+                        })
                     }).catch(() => {});
-                }
-                // API 키가 하나도 없으면 설정 팝업 자동 열기
-                const hasAnyKey = gemini || claude || openai || deepseek;
-                if (showPopupIfEmpty && !hasAnyKey) {
-                    setTimeout(() => setShowSettings(true), 500);
                 }
             }
         } catch (err) {
             console.error("Settings fetch failed", err);
-            // 서버 실패 시 localStorage에서 복원
             setGeminiApiKey(localStorage.getItem('gemini_api_key') || '');
             setClaudeApiKey(localStorage.getItem('claude_api_key') || '');
             setOpenaiApiKey(localStorage.getItem('openai_api_key') || '');
-            setDeepseekApiKey(localStorage.getItem('deepseek_api_key') || '');
         }
     };
 
@@ -204,7 +208,6 @@ export default function App() {
         localStorage.setItem('gemini_api_key', geminiApiKey);
         localStorage.setItem('claude_api_key', claudeApiKey);
         localStorage.setItem('openai_api_key', openaiApiKey);
-        localStorage.setItem('deepseek_api_key', deepseekApiKey);
         try {
             const response = await fetch(`${BACKEND_URL}/api/user/settings`, {
                 method: 'POST',
@@ -216,12 +219,14 @@ export default function App() {
                     gemini_api_key: geminiApiKey,
                     claude_api_key: claudeApiKey,
                     openai_api_key: openaiApiKey,
-                    deepseek_api_key: deepseekApiKey
                 })
             });
             if (response.ok) {
+                setGeminiSaved(!!geminiApiKey);
+                setClaudeSaved(!!claudeApiKey);
+                setOpenaiSaved(!!openaiApiKey);
                 setShowSettings(false);
-                alert("설정이 저장되었습니다.");
+                alert("설정이 안전하게 암호화되어 저장되었습니다.");
             } else {
                 throw new Error("서버 저장 실패");
             }
@@ -257,7 +262,6 @@ export default function App() {
                     gemini_api_key: geminiApiKey || localStorage.getItem('gemini_api_key') || undefined,
                     claude_api_key: claudeApiKey || localStorage.getItem('claude_api_key') || undefined,
                     openai_api_key: openaiApiKey || localStorage.getItem('openai_api_key') || undefined,
-                    deepseek_api_key: deepseekApiKey || localStorage.getItem('deepseek_api_key') || undefined,
                 }),
             });
             if (!response.ok) {
@@ -730,13 +734,19 @@ export default function App() {
             {/* ===== HEADER ===== */}
             <header className="h-16 border-b border-gray-200/60 flex items-center justify-between px-5 bg-white/80 backdrop-blur-xl z-50 shrink-0">
                 <div className="flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#833AB4] via-[#E1306C] to-[#F77737] flex items-center justify-center shadow-md">
-                        <Instagram size={18} className="text-white" />
-                    </div>
-                    <div className="flex flex-col">
-                        <span className="font-black text-base leading-tight">카드뉴스</span>
-                        <span className="text-[10px] font-bold text-gray-400 leading-tight">스튜디오</span>
-                    </div>
+                    <button
+                        onClick={() => { setActiveStep(1); setHtmlText(''); setInputText(''); setError(null); setEditMode(false); }}
+                        className="flex items-center gap-3 hover:opacity-80 transition-opacity"
+                        title="홈으로"
+                    >
+                        <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#833AB4] via-[#E1306C] to-[#F77737] flex items-center justify-center shadow-md">
+                            <Instagram size={18} className="text-white" />
+                        </div>
+                        <div className="flex flex-col">
+                            <span className="font-black text-base leading-tight">카드뉴스</span>
+                            <span className="text-[10px] font-bold text-gray-400 leading-tight">스튜디오</span>
+                        </div>
+                    </button>
                     <div className="hidden md:flex items-center gap-1.5 bg-gray-50 border border-gray-100 px-3 py-1.5 rounded-full ml-1">
                         <div className={`w-2 h-2 rounded-full ${backendStatus === 'online' ? 'bg-green-500 shadow-[0_0_6px_rgba(34,197,94,0.4)]' : 'bg-red-500'}`} />
                         <span className="text-[10px] font-bold text-gray-500 uppercase tracking-tighter">
@@ -1719,37 +1729,6 @@ export default function App() {
                                                             </div>
                                                         </div>
 
-                                                        {/* DeepSeek API Key */}
-                                                        <div className="space-y-1.5">
-                                                            <div className="flex justify-between items-center">
-                                                                <span className="text-[10px] font-bold text-gray-600">DeepSeek API Key</span>
-                                                                <div className="flex items-center gap-2">
-                                                                    <button onClick={() => setShowDeepSeekKey(!showDeepSeekKey)} className="text-gray-400 hover:text-gray-600">
-                                                                        {showDeepSeekKey ? <EyeOff size={11} /> : <Eye size={11} />}
-                                                                    </button>
-                                                                    <a href="https://platform.deepseek.com/api_keys" target="_blank" rel="noreferrer" className="text-[9px] text-blue-500 hover:underline">발급</a>
-                                                                </div>
-                                                            </div>
-                                                            <div className="relative">
-                                                                <input
-                                                                    type={showDeepSeekKey ? "text" : "password"}
-                                                                    value={deepseekApiKey}
-                                                                    onChange={(e) => {
-                                                                        setDeepseekApiKey(e.target.value);
-                                                                        localStorage.setItem('deepseek_api_key', e.target.value);
-                                                                    }}
-                                                                    placeholder="DeepSeek API 키 입력"
-                                                                    className="w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-[10px] outline-none focus:border-cyan-400 transition-colors pr-8"
-                                                                />
-                                                                {deepseekApiKey && (
-                                                                    <button onClick={() => { setDeepseekApiKey(''); localStorage.removeItem('deepseek_api_key'); }}
-                                                                        className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-300 hover:text-red-400">
-                                                                        <Trash2 size={10} />
-                                                                    </button>
-                                                                )}
-                                                            </div>
-                                                        </div>
-
                                                         <div className="bg-blue-50 rounded-xl p-3 border border-blue-100">
                                                             <p className="text-[9px] text-blue-600 font-medium leading-tight text-center">
                                                                 🛡️ 모든 트래픽은 암호화(HTTPS)되며, 키는 본인의 브라우저 외에는 어디에도 기록되지 않습니다.
@@ -1939,12 +1918,12 @@ export default function App() {
                             </div>
 
                             <div className="p-6 space-y-6 overflow-y-auto max-h-[70vh]">
-                                <div className="bg-blue-50/50 border border-blue-100 rounded-2xl p-4 flex gap-3">
-                                    <ShieldCheck className="text-blue-500 shrink-0" size={18} />
+                                <div className="bg-emerald-50/50 border border-emerald-100 rounded-2xl p-4 flex gap-3">
+                                    <ShieldCheck className="text-emerald-500 shrink-0" size={18} />
                                     <div className="space-y-1">
-                                        <span className="text-[11px] font-bold text-blue-700">개인정보 보호 안내</span>
-                                        <p className="text-[10px] text-blue-600/80 leading-relaxed">
-                                            입력하신 API 키는 서버에 저장되지 않으며, 오직 귀하의 장치(localStorage)에만 안전하게 보관됩니다.
+                                        <span className="text-[11px] font-bold text-emerald-700">🔐 암호화 보안 저장</span>
+                                        <p className="text-[10px] text-emerald-600/80 leading-relaxed">
+                                            API 키는 <strong>AES-256(Fernet) 암호화</strong>되어 서버에 저장됩니다. 평문 키는 절대 노출되지 않으며, 브라우저(localStorage)에도 함께 보관됩니다.
                                         </p>
                                     </div>
                                 </div>
@@ -1953,7 +1932,10 @@ export default function App() {
                                     {/* Gemini */}
                                     <div className="space-y-2">
                                         <div className="flex justify-between items-center px-1">
-                                            <span className="text-[11px] font-bold text-gray-700">Gemini (Google)</span>
+                                            <div className="flex items-center gap-2">
+                                                <span className="text-[11px] font-bold text-gray-700">Gemini (Google)</span>
+                                                {geminiSaved && <span className="text-[9px] bg-emerald-100 text-emerald-700 px-1.5 py-0.5 rounded-full font-medium">🔐 암호화 저장됨</span>}
+                                            </div>
                                             <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noreferrer" className="text-[10px] text-blue-500 hover:underline">키 발급받기</a>
                                         </div>
                                         <div className="relative group">
@@ -1962,7 +1944,7 @@ export default function App() {
                                                 value={geminiApiKey}
                                                 onChange={(e) => setGeminiApiKey(e.target.value)}
                                                 className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-xs outline-none focus:border-gray-900 focus:bg-white transition-all pr-20"
-                                                placeholder="Gemini API Key 입력"
+                                                placeholder={geminiSaved ? "새 키를 입력하면 덮어씁니다" : "Gemini API Key 입력"}
                                             />
                                             <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-2">
                                                 <button onClick={() => setShowGeminiKey(!showGeminiKey)} className="text-gray-400 hover:text-gray-600">
@@ -1976,7 +1958,10 @@ export default function App() {
                                     {/* Claude */}
                                     <div className="space-y-2">
                                         <div className="flex justify-between items-center px-1">
-                                            <span className="text-[11px] font-bold text-gray-700">Claude (Anthropic)</span>
+                                            <div className="flex items-center gap-2">
+                                                <span className="text-[11px] font-bold text-gray-700">Claude (Anthropic)</span>
+                                                {claudeSaved && <span className="text-[9px] bg-emerald-100 text-emerald-700 px-1.5 py-0.5 rounded-full font-medium">🔐 암호화 저장됨</span>}
+                                            </div>
                                             <a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noreferrer" className="text-[10px] text-blue-500 hover:underline">키 발급받기</a>
                                         </div>
                                         <div className="relative group">
@@ -1985,7 +1970,7 @@ export default function App() {
                                                 value={claudeApiKey}
                                                 onChange={(e) => setClaudeApiKey(e.target.value)}
                                                 className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-xs outline-none focus:border-gray-900 focus:bg-white transition-all pr-20"
-                                                placeholder="Claude API Key 입력"
+                                                placeholder={claudeSaved ? "새 키를 입력하면 덮어씁니다" : "Claude API Key 입력"}
                                             />
                                             <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-2">
                                                 <button onClick={() => setShowClaudeKey(!showClaudeKey)} className="text-gray-400 hover:text-gray-600">
@@ -1999,7 +1984,10 @@ export default function App() {
                                     {/* OpenAI */}
                                     <div className="space-y-2">
                                         <div className="flex justify-between items-center px-1">
-                                            <span className="text-[11px] font-bold text-gray-700">OpenAI (GPT-4o)</span>
+                                            <div className="flex items-center gap-2">
+                                                <span className="text-[11px] font-bold text-gray-700">OpenAI (GPT-4o)</span>
+                                                {openaiSaved && <span className="text-[9px] bg-emerald-100 text-emerald-700 px-1.5 py-0.5 rounded-full font-medium">🔐 암호화 저장됨</span>}
+                                            </div>
                                             <a href="https://platform.openai.com/api-keys" target="_blank" rel="noreferrer" className="text-[10px] text-blue-500 hover:underline">키 발급받기</a>
                                         </div>
                                         <div className="relative group">
@@ -2008,7 +1996,7 @@ export default function App() {
                                                 value={openaiApiKey}
                                                 onChange={(e) => setOpenaiApiKey(e.target.value)}
                                                 className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-xs outline-none focus:border-gray-900 focus:bg-white transition-all pr-20"
-                                                placeholder="OpenAI API Key 입력"
+                                                placeholder={openaiSaved ? "새 키를 입력하면 덮어씁니다" : "OpenAI API Key 입력"}
                                             />
                                             <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-2">
                                                 <button onClick={() => setShowOpenAIKey(!showOpenAIKey)} className="text-gray-400 hover:text-gray-600">
@@ -2019,28 +2007,6 @@ export default function App() {
                                         </div>
                                     </div>
 
-                                    {/* DeepSeek */}
-                                    <div className="space-y-2">
-                                        <div className="flex justify-between items-center px-1">
-                                            <span className="text-[11px] font-bold text-gray-700">DeepSeek (V3/R1)</span>
-                                            <a href="https://platform.deepseek.com/api_keys" target="_blank" rel="noreferrer" className="text-[10px] text-blue-500 hover:underline">키 발급받기</a>
-                                        </div>
-                                        <div className="relative group">
-                                            <input
-                                                type={showDeepSeekKey ? "text" : "password"}
-                                                value={deepseekApiKey}
-                                                onChange={(e) => setDeepseekApiKey(e.target.value)}
-                                                className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-xs outline-none focus:border-gray-900 focus:bg-white transition-all pr-20"
-                                                placeholder="DeepSeek API Key 입력"
-                                            />
-                                            <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-2">
-                                                <button onClick={() => setShowDeepSeekKey(!showDeepSeekKey)} className="text-gray-400 hover:text-gray-600">
-                                                    {showDeepSeekKey ? <EyeOff size={14} /> : <Eye size={14} />}
-                                                </button>
-                                                {deepseekApiKey && <button onClick={() => setDeepseekApiKey('')} className="text-gray-300 hover:text-red-500"><Trash2 size={13} /></button>}
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                                 <button
                                     onClick={handleSaveSettings}
