@@ -358,6 +358,85 @@ class GenerateHtmlRequest(BaseModel):
     claude_api_key: Optional[str] = None
     openai_api_key: Optional[str] = None
 
+class TestKeyRequest(BaseModel):
+    gemini_api_key: Optional[str] = None
+    claude_api_key: Optional[str] = None
+    openai_api_key: Optional[str] = None
+
+@app.post("/api/test-keys")
+async def test_api_keys(request: TestKeyRequest, request_raw: Request):
+    """API 키 유효성 테스트 — 실제 원인을 반환해 진단에 활용"""
+    # 서버 저장 키 + 요청 키 합산
+    stored_keys = {"gemini_api_key": "", "claude_api_key": "", "openai_api_key": ""}
+    auth_header = request_raw.headers.get("Authorization")
+    if auth_header:
+        try:
+            user = await get_current_user(request_raw)
+            stored_keys = get_decrypted_settings(user["email"])
+        except:
+            pass
+
+    gemini_key = stored_keys.get("gemini_api_key") or request.gemini_api_key
+    claude_key = stored_keys.get("claude_api_key") or request.claude_api_key
+    openai_key = stored_keys.get("openai_api_key") or request.openai_api_key
+
+    results = {}
+
+    # Gemini 테스트
+    if gemini_key:
+        try:
+            from google import genai
+            client = genai.Client(api_key=gemini_key)
+            resp = client.models.generate_content(
+                model="gemini-2.0-flash",
+                contents="Say 'ok' in one word.",
+            )
+            results["gemini"] = {"status": "ok", "response": resp.text[:50] if resp.text else "empty"}
+        except Exception as e:
+            results["gemini"] = {"status": "error", "error": str(e)}
+    else:
+        results["gemini"] = {"status": "no_key"}
+
+    # Claude 테스트
+    if claude_key:
+        try:
+            import httpx as _httpx
+            r = _httpx.post(
+                "https://api.anthropic.com/v1/messages",
+                headers={"x-api-key": claude_key, "anthropic-version": "2023-06-01", "content-type": "application/json"},
+                json={"model": "claude-3-haiku-20240307", "max_tokens": 10, "messages": [{"role": "user", "content": "Say ok"}]},
+                timeout=10.0
+            )
+            if r.status_code == 200:
+                results["claude"] = {"status": "ok"}
+            else:
+                results["claude"] = {"status": "error", "error": r.text[:200]}
+        except Exception as e:
+            results["claude"] = {"status": "error", "error": str(e)}
+    else:
+        results["claude"] = {"status": "no_key"}
+
+    # OpenAI 테스트
+    if openai_key:
+        try:
+            import httpx as _httpx
+            r = _httpx.post(
+                "https://api.openai.com/v1/chat/completions",
+                headers={"Authorization": f"Bearer {openai_key}", "Content-Type": "application/json"},
+                json={"model": "gpt-4o-mini", "messages": [{"role": "user", "content": "Say ok"}], "max_tokens": 5},
+                timeout=10.0
+            )
+            if r.status_code == 200:
+                results["openai"] = {"status": "ok"}
+            else:
+                results["openai"] = {"status": "error", "error": r.text[:200]}
+        except Exception as e:
+            results["openai"] = {"status": "error", "error": str(e)}
+    else:
+        results["openai"] = {"status": "no_key"}
+
+    return results
+
 @app.post("/api/generate_html")
 async def generate_html_endpoint(request: GenerateHtmlRequest, request_raw: Request):
     try:
@@ -375,6 +454,14 @@ async def generate_html_endpoint(request: GenerateHtmlRequest, request_raw: Requ
         gemini_key = stored_keys.get("gemini_api_key") or request.gemini_api_key
         claude_key = stored_keys.get("claude_api_key") or request.claude_api_key
         openai_key = stored_keys.get("openai_api_key") or request.openai_api_key
+
+        # 진단 로깅: 어떤 키가 어디서 왔는지 확인 (키 값 자체는 노출 안 함)
+        print(f"[KEY_DEBUG] gemini={'stored' if stored_keys.get('gemini_api_key') else ('request' if request.gemini_api_key else 'NONE')}"
+              f" claude={'stored' if stored_keys.get('claude_api_key') else ('request' if request.claude_api_key else 'NONE')}"
+              f" openai={'stored' if stored_keys.get('openai_api_key') else ('request' if request.openai_api_key else 'NONE')}")
+        print(f"[KEY_DEBUG] key lengths: gemini={len(gemini_key) if gemini_key else 0}"
+              f" claude={len(claude_key) if claude_key else 0}"
+              f" openai={len(openai_key) if openai_key else 0}")
 
         print(f"1. Researching: {request.text[:50]}...")
         expanded_text = research_topic(request.text, api_key=gemini_key)

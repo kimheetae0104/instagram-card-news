@@ -286,8 +286,11 @@ def extract_html(raw):
 
 
 def generate_html(text, slides=5, bg_image=None, gemini_key=None, claude_key=None, openai_key=None, deepseek_key=None):
-    # 우선순위: 제미나이 -> 클로드 -> 오픈AI -> 딥시크
+    # 우선순위: 제미나이 -> 클로드 -> 오픈AI
     # 각 provider는 독립적으로 try/except 처리 → 하나 실패해도 다음 provider로 폴백
+    # 모든 실패 시 실제 오류 원인을 포함한 에러를 던져 진단 가능하게 함
+
+    provider_errors = []  # 각 provider의 실제 오류를 수집
 
     # 1. GEMINI
     g_key = gemini_key or GEMINI_API_KEY
@@ -297,8 +300,15 @@ def generate_html(text, slides=5, bg_image=None, gemini_key=None, claude_key=Non
             if html:
                 print("[INFO] ✅ 생성 완료 (Gemini)", file=sys.stderr)
                 return html
+            else:
+                provider_errors.append("Gemini: 응답 파싱 실패 (HTML 없음)")
+                print("[WARN] Gemini: 응답에서 HTML 추출 실패", file=sys.stderr)
         except Exception as e:
-            print(f"[WARN] Gemini 실패, 다음 provider로 폴백: {e}", file=sys.stderr)
+            err = str(e)
+            provider_errors.append(f"Gemini: {err}")
+            print(f"[WARN] Gemini 실패, 다음 provider로 폴백: {err}", file=sys.stderr)
+    else:
+        provider_errors.append("Gemini: API 키 없음")
 
     # 2. CLAUDE
     if claude_key:
@@ -307,8 +317,14 @@ def generate_html(text, slides=5, bg_image=None, gemini_key=None, claude_key=Non
             if html:
                 print("[INFO] ✅ 생성 완료 (Claude)", file=sys.stderr)
                 return html
+            else:
+                provider_errors.append("Claude: 응답 파싱 실패")
         except Exception as e:
-            print(f"[WARN] Claude 실패, 다음 provider로 폴백: {e}", file=sys.stderr)
+            err = str(e)
+            provider_errors.append(f"Claude: {err}")
+            print(f"[WARN] Claude 실패, 다음 provider로 폴백: {err}", file=sys.stderr)
+    else:
+        provider_errors.append("Claude: API 키 없음")
 
     # 3. OPENAI
     if openai_key:
@@ -317,16 +333,24 @@ def generate_html(text, slides=5, bg_image=None, gemini_key=None, claude_key=Non
             if html:
                 print("[INFO] ✅ 생성 완료 (OpenAI)", file=sys.stderr)
                 return html
+            else:
+                provider_errors.append("OpenAI: 응답 파싱 실패")
         except Exception as e:
-            print(f"[WARN] OpenAI 실패, 다음 provider로 폴백: {e}", file=sys.stderr)
+            err = str(e)
+            provider_errors.append(f"OpenAI: {err}")
+            print(f"[WARN] OpenAI 실패: {err}", file=sys.stderr)
+    else:
+        provider_errors.append("OpenAI: API 키 없음")
 
-    # 모든 시도가 실패한 경우
-    error_msg = "모든 AI 서비스 호출에 실패했습니다. API 키가 유효한지 확인해주세요."
+    # 모든 시도가 실패한 경우 — 실제 오류 원인 포함
     if not any([g_key, claude_key, openai_key]):
-        error_msg = "설정된 AI API 키가 없습니다. 설정 탭에서 API 키를 입력해주세요."
+        raise Exception("설정된 AI API 키가 없습니다. 설정 탭에서 API 키를 입력해주세요.")
 
-    print(f"[ERROR] {error_msg}", file=sys.stderr)
-    raise Exception(error_msg)
+    # 실제 provider 오류 원인을 에러에 포함 (진단용)
+    error_detail = " | ".join(provider_errors)
+    final_msg = f"모든 AI 서비스 호출에 실패했습니다. [{error_detail}]"
+    print(f"[ERROR] {final_msg}", file=sys.stderr)
+    raise Exception(final_msg)
 
 
 if __name__ == "__main__":

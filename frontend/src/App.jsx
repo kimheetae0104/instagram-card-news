@@ -200,6 +200,36 @@ export default function App() {
 
     const handleLogout = () => { localStorage.removeItem('auth_token'); setUser(null); };
 
+    const handleTestKeys = async () => {
+        const token = localStorage.getItem('auth_token');
+        setLoading(true);
+        try {
+            const response = await fetch(`${BACKEND_URL}/api/test-keys`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    ...(token ? { 'Authorization': `Bearer ${token}` } : {})
+                },
+                body: JSON.stringify({
+                    gemini_api_key: geminiApiKey || localStorage.getItem('gemini_api_key') || undefined,
+                    claude_api_key: claudeApiKey || localStorage.getItem('claude_api_key') || undefined,
+                    openai_api_key: openaiApiKey || localStorage.getItem('openai_api_key') || undefined,
+                })
+            });
+            const data = await response.json();
+            const lines = Object.entries(data).map(([name, r]) => {
+                if (r.status === 'ok') return `✅ ${name.toUpperCase()}: 정상`;
+                if (r.status === 'no_key') return `⚪ ${name.toUpperCase()}: 키 없음`;
+                return `❌ ${name.toUpperCase()}: ${r.error || '오류'}`;
+            });
+            alert('API 키 테스트 결과:\n\n' + lines.join('\n'));
+        } catch (err) {
+            alert('테스트 실패: ' + err.message);
+        } finally {
+            setLoading(false);
+        }
+    };
+
     const handleSaveSettings = async () => {
         const token = localStorage.getItem('auth_token');
         if (!token) return;
@@ -2014,13 +2044,24 @@ export default function App() {
                                     </div>
 
                                 </div>
-                                <button
-                                    onClick={handleSaveSettings}
-                                    className="w-full bg-gray-900 text-white rounded-xl py-3 text-sm font-bold hover:bg-gray-800 transition-all flex items-center justify-center gap-2"
-                                >
-                                    {loading ? <RefreshCw size={14} className="animate-spin" /> : <ShieldCheck size={14} />}
-                                    서버에 안전하게 저장하기
-                                </button>
+                                <div className="flex gap-2">
+                                    <button
+                                        onClick={handleTestKeys}
+                                        disabled={loading}
+                                        className="flex-1 bg-white border border-gray-200 text-gray-700 rounded-xl py-3 text-sm font-semibold hover:bg-gray-50 transition-all flex items-center justify-center gap-2"
+                                    >
+                                        {loading ? <RefreshCw size={14} className="animate-spin" /> : '🔍'}
+                                        키 유효성 테스트
+                                    </button>
+                                    <button
+                                        onClick={handleSaveSettings}
+                                        disabled={loading}
+                                        className="flex-1 bg-gray-900 text-white rounded-xl py-3 text-sm font-bold hover:bg-gray-800 transition-all flex items-center justify-center gap-2"
+                                    >
+                                        {loading ? <RefreshCw size={14} className="animate-spin" /> : <ShieldCheck size={14} />}
+                                        저장
+                                    </button>
+                                </div>
                             </div>
 
                             <div className="p-6 bg-gray-50/50 border-t border-gray-100 italic text-[9px] text-gray-400 text-center">
