@@ -29,3 +29,9 @@ env/
 
 # Logs
 *.log
+
+# Runtime data (ephemeral, user-specific — must NOT be committed)
+.tmp/
+uploads/
+backend/.tmp/
+backend/uploads/

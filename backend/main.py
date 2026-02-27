@@ -187,30 +187,29 @@ os.makedirs(UPLOADS_DIR, exist_ok=True)
 app.mount("/api/uploads", StaticFiles(directory=UPLOADS_DIR), name="uploads")
 
 pytrend = TrendReq(hl='ko-KR', tz=540)
-HISTORY_FILE = os.path.join(TMP_DIR, "history.json")
+# 히스토리는 유저별로 user_settings.json 내 "history" 키에 저장 (전역 파일 사용 안 함)
 
-def load_history():
-    try:
-        if os.path.exists(HISTORY_FILE):
-            with open(HISTORY_FILE, "r", encoding="utf-8") as f:
-                content = f.read().strip()
-                if not content:
-                    return []
-                return json.loads(content)
-    except Exception as e:
-        print(f"History load error: {e}")
-    return []
+def load_user_history(email: str) -> list:
+    """특정 유저의 히스토리만 반환"""
+    all_settings = load_settings()
+    return all_settings.get(email, {}).get("history", [])
 
-def save_history(entry):
-    history = load_history()
-    # Add new entry at the beginning
+def save_user_history(email: str, entry: dict):
+    """특정 유저의 히스토리에 항목 추가 (최대 20개)"""
+    all_settings = load_settings()
+    user_data = all_settings.get(email, {})
+    history = user_data.get("history", [])
     entry["id"] = datetime.now().strftime("%Y%m%d%H%M%S")
     entry["timestamp"] = datetime.now().isoformat()
     history.insert(0, entry)
-    # Keep last 20 entries
-    history = history[:20]
-    with open(HISTORY_FILE, "w", encoding="utf-8") as f:
-        json.dump(history, f, ensure_ascii=False, indent=2)
+    history = history[:20]  # 최대 20개 유지
+    user_data["history"] = history
+    all_settings[email] = user_data
+    try:
+        with open(SETTINGS_FILE, "w", encoding="utf-8") as f:
+            json.dump(all_settings, f, ensure_ascii=False, indent=2)
+    except Exception as e:
+        print(f"History save error: {e}")
 
 SETTINGS_FILE = os.path.join(TMP_DIR, "user_settings.json")
 
@@ -316,8 +315,12 @@ async def health_check():
     return {"status": "ok", "backend_url": "http://localhost:8899"}
 
 @app.get("/api/history")
-async def get_history():
-    return {"history": load_history()}
+async def get_history(user: dict = Depends(get_current_user)):
+    """로그인한 유저 본인의 히스토리만 반환"""
+    history = load_user_history(user["email"])
+    # html 필드는 크기가 크므로 목록 조회 시 제외 (필요 시 별도 API로 확장 가능)
+    summary = [{"id": h.get("id"), "text": h.get("text"), "slide_count": h.get("slide_count"), "timestamp": h.get("timestamp"), "html": h.get("html")} for h in history]
+    return {"history": summary}
 
 @app.post("/api/upload")
 async def upload_image(file: UploadFile = File(...)):
@@ -377,12 +380,17 @@ async def generate_html_endpoint(request: GenerateHtmlRequest, request_raw: Requ
             openai_key=openai_key,
         )
         
-        # Save to history
-        save_history({
-            "text": request.text,
-            "slide_count": request.slide_count,
-            "html": html_content
-        })
+        # 유저별 히스토리 저장 (인증된 경우만)
+        if auth_header:
+            try:
+                hist_user = await get_current_user(request_raw)
+                save_user_history(hist_user["email"], {
+                    "text": request.text,
+                    "slide_count": request.slide_count,
+                    "html": html_content
+                })
+            except Exception as he:
+                print(f"History save skipped: {he}")
         
         return {"html": html_content}
     except Exception as e:
