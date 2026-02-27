@@ -31,7 +31,7 @@ from execution.generate_html_from_text import generate_html
 USE_PYTREND = os.getenv("USE_PYTREND", "false").lower() == "true"
 from typing import Optional
 
-load_dotenv()
+load_dotenv(dotenv_path=os.path.join(os.path.dirname(os.path.abspath(__file__)), '.env'), override=True)
 
 app = FastAPI(title="Card News to Instagram Engine")
 
@@ -68,18 +68,30 @@ app.add_middleware(
 )
 
 # Auth Routes
+@app.get('/debug-oauth')
+async def debug_oauth(request: Request):
+    """진단용: OAuth 설정 확인"""
+    redirect_uri = str(request.url_for('auth'))
+    if "localhost" in redirect_uri or "127.0.0.1" in redirect_uri:
+        redirect_uri = redirect_uri.replace("127.0.0.1", "localhost")
+    return {
+        "client_id": GOOGLE_CLIENT_ID,
+        "redirect_uri_generated": redirect_uri,
+        "request_base_url": str(request.base_url),
+    }
+
 @app.get('/login')
 async def login(request: Request):
     # Use the absolute URL for 'auth' route
     redirect_uri = str(request.url_for('auth'))
-    
+
     # Handle environment-specific redirect URI fixes
     if "localhost" in redirect_uri or "127.0.0.1" in redirect_uri:
         # Ensure we use localhost specifically if that's what's registered
         redirect_uri = redirect_uri.replace("127.0.0.1", "localhost")
     elif request.headers.get("x-forwarded-proto") == "https":
         redirect_uri = redirect_uri.replace("http://", "https://")
-        
+
     return await oauth.google.authorize_redirect(request, redirect_uri)
 
 @app.get('/auth')
