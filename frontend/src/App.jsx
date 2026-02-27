@@ -796,31 +796,31 @@ export default function App() {
                                         onChange={(e) => setInputText(e.target.value)}
                                         onKeyDown={(e) => { if (e.key === 'Enter' && e.metaKey) handleGenerate(); }}
                                         placeholder={`카드뉴스로 만들 주제나 내용을 입력하세요...\n\n예: 2026년 부동산 시장 전망과 투자 전략 5가지`}
-                                        className="w-full h-44 bg-white rounded-2xl p-5 pb-16 outline-none text-base font-medium placeholder:text-gray-300 border border-transparent group-focus-within:border-gray-100 transition-all resize-none shadow-xl"
+                                        className="w-full h-44 sm:h-44 bg-white rounded-2xl p-4 pb-24 sm:pb-16 outline-none text-base font-medium placeholder:text-gray-300 border border-transparent group-focus-within:border-gray-100 transition-all resize-none shadow-xl"
                                     />
-                                    <div className="absolute bottom-4 left-5 right-5 flex items-center justify-between">
-                                        <div className="flex items-center gap-3">
-                                            <div className="flex items-center gap-2 bg-gray-50 px-3 py-1.5 rounded-xl border border-gray-100">
+                                    <div className="absolute bottom-3 left-4 right-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                                        <div className="flex items-center gap-2 flex-wrap">
+                                            <div className="flex items-center gap-2 bg-gray-50 px-2.5 py-1.5 rounded-xl border border-gray-100">
                                                 <Layers size={12} className="text-gray-400" />
                                                 <span className="text-[10px] font-black text-gray-500">{slideCount}장</span>
                                                 <input type="range" min="3" max="10" value={slideCount}
                                                     onChange={(e) => setSlideCount(parseInt(e.target.value))}
-                                                    className="w-20 accent-[#E1306C] h-1.5 rounded-full appearance-none cursor-pointer" />
+                                                    className="w-14 sm:w-20 accent-[#E1306C] h-1.5 rounded-full appearance-none cursor-pointer" />
                                             </div>
                                             {bgImage ? (
                                                 <div className="flex items-center gap-1.5 bg-green-50 border border-green-200 px-2 py-1 rounded-lg cursor-pointer" onClick={() => setBgImage(null)}>
                                                     <Check size={10} className="text-green-600" />
-                                                    <span className="text-[9px] text-green-600 font-bold">배경 이미지 선택됨 (클릭해 제거)</span>
+                                                    <span className="text-[9px] text-green-600 font-bold">배경 선택됨 ✕</span>
                                                 </div>
                                             ) : (
                                                 <button onClick={() => fileInputRef.current?.click()} className="flex items-center gap-1.5 bg-gray-50 border border-gray-200 px-2.5 py-1.5 rounded-lg text-[10px] font-bold text-gray-500 hover:bg-gray-100 transition-colors">
-                                                    <ImageIcon size={11} /> 배경 이미지
+                                                    <ImageIcon size={11} /> 배경이미지
                                                 </button>
                                             )}
                                             <input ref={fileInputRef} type="file" accept="image/*" className="hidden" onChange={handleUpload} />
                                         </div>
                                         <button onClick={handleGenerate} disabled={generating || !inputText.trim()}
-                                            className="flex items-center gap-2 bg-gray-900 text-white px-6 py-2.5 rounded-xl font-black text-sm hover:bg-black active:scale-95 transition-all disabled:opacity-30 shadow-xl">
+                                            className="flex items-center justify-center gap-2 bg-gray-900 text-white w-full sm:w-auto px-5 py-2.5 rounded-xl font-black text-sm hover:bg-black active:scale-95 transition-all disabled:opacity-30 shadow-xl">
                                             {generating ? <RefreshCw size={16} className="animate-spin" /> : <Wand2 size={16} />}
                                             {generating ? GENERATE_STEPS[generateStep]?.label : '생성하기'}
                                         </button>
