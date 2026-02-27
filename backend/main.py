@@ -42,6 +42,7 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24 # 1 Day
 
 GOOGLE_CLIENT_ID = os.environ.get("GOOGLE_CLIENT_ID")
 GOOGLE_CLIENT_SECRET = os.environ.get("GOOGLE_CLIENT_SECRET")
+BACKEND_URL = os.environ.get("BACKEND_URL", "").rstrip("/")
 
 oauth = OAuth()
 oauth.register(
@@ -71,26 +72,21 @@ app.add_middleware(
 @app.get('/debug-oauth')
 async def debug_oauth(request: Request):
     """진단용: OAuth 설정 확인"""
-    redirect_uri = str(request.url_for('auth'))
-    if "localhost" in redirect_uri or "127.0.0.1" in redirect_uri:
-        redirect_uri = redirect_uri.replace("127.0.0.1", "localhost")
+    redirect_uri = BACKEND_URL + "/auth" if BACKEND_URL else str(request.url_for('auth')).replace("127.0.0.1", "localhost")
     return {
         "client_id": GOOGLE_CLIENT_ID,
         "redirect_uri_generated": redirect_uri,
+        "backend_url_env": BACKEND_URL or "(not set - using request URL)",
         "request_base_url": str(request.base_url),
     }
 
 @app.get('/login')
 async def login(request: Request):
-    # Use the absolute URL for 'auth' route
-    redirect_uri = str(request.url_for('auth'))
-
-    # Handle environment-specific redirect URI fixes
-    if "localhost" in redirect_uri or "127.0.0.1" in redirect_uri:
-        # Ensure we use localhost specifically if that's what's registered
-        redirect_uri = redirect_uri.replace("127.0.0.1", "localhost")
-    elif request.headers.get("x-forwarded-proto") == "https":
-        redirect_uri = redirect_uri.replace("http://", "https://")
+    # BACKEND_URL 환경변수가 있으면 그것을 사용 (프로덕션), 없으면 요청 URL 사용 (로컬)
+    if BACKEND_URL:
+        redirect_uri = BACKEND_URL + "/auth"
+    else:
+        redirect_uri = str(request.url_for('auth')).replace("127.0.0.1", "localhost")
 
     return await oauth.google.authorize_redirect(request, redirect_uri)
 
