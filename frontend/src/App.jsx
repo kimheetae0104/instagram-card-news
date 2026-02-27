@@ -147,17 +147,37 @@ export default function App() {
             });
             const data = await response.json();
             if (data) {
-                setGeminiApiKey(data.gemini_api_key || '');
-                setClaudeApiKey(data.claude_api_key || '');
-                setOpenaiApiKey(data.openai_api_key || '');
-                setDeepseekApiKey(data.deepseek_api_key || '');
+                // 서버 값이 있으면 서버 값 우선, 없으면 localStorage fallback
+                const gemini = data.gemini_api_key || localStorage.getItem('gemini_api_key') || '';
+                const claude = data.claude_api_key || localStorage.getItem('claude_api_key') || '';
+                const openai = data.openai_api_key || localStorage.getItem('openai_api_key') || '';
+                const deepseek = data.deepseek_api_key || localStorage.getItem('deepseek_api_key') || '';
+                setGeminiApiKey(gemini);
+                setClaudeApiKey(claude);
+                setOpenaiApiKey(openai);
+                setDeepseekApiKey(deepseek);
+                // 서버에 없으면 localStorage 값으로 서버 동기화 시도
+                if (!data.gemini_api_key && gemini) {
+                    fetch(`${BACKEND_URL}/api/user/settings`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                        body: JSON.stringify({ gemini_api_key: gemini, claude_api_key: claude, openai_api_key: openai, deepseek_api_key: deepseek })
+                    }).catch(() => {});
+                }
                 // API 키가 하나도 없으면 설정 팝업 자동 열기
-                const hasAnyKey = data.gemini_api_key || data.claude_api_key || data.openai_api_key || data.deepseek_api_key;
+                const hasAnyKey = gemini || claude || openai || deepseek;
                 if (showPopupIfEmpty && !hasAnyKey) {
                     setTimeout(() => setShowSettings(true), 500);
                 }
             }
-        } catch (err) { console.error("Settings fetch failed", err); }
+        } catch (err) {
+            console.error("Settings fetch failed", err);
+            // 서버 실패 시 localStorage에서 복원
+            setGeminiApiKey(localStorage.getItem('gemini_api_key') || '');
+            setClaudeApiKey(localStorage.getItem('claude_api_key') || '');
+            setOpenaiApiKey(localStorage.getItem('openai_api_key') || '');
+            setDeepseekApiKey(localStorage.getItem('deepseek_api_key') || '');
+        }
     };
 
     const handleUpload = async (e) => {
@@ -180,6 +200,11 @@ export default function App() {
         const token = localStorage.getItem('auth_token');
         if (!token) return;
         setLoading(true);
+        // Always persist to localStorage first (survives server restarts)
+        localStorage.setItem('gemini_api_key', geminiApiKey);
+        localStorage.setItem('claude_api_key', claudeApiKey);
+        localStorage.setItem('openai_api_key', openaiApiKey);
+        localStorage.setItem('deepseek_api_key', deepseekApiKey);
         try {
             const response = await fetch(`${BACKEND_URL}/api/user/settings`, {
                 method: 'POST',
@@ -196,11 +221,15 @@ export default function App() {
             });
             if (response.ok) {
                 setShowSettings(false);
-                alert("설정이 서버에 안전하게 저장되었습니다.");
+                alert("설정이 저장되었습니다.");
             } else {
-                throw new Error("저장 실패");
+                throw new Error("서버 저장 실패");
             }
-        } catch (err) { alert("설정 저장에 실패했습니다."); }
+        } catch (err) {
+            // localStorage에는 이미 저장됐으므로 사용은 가능
+            setShowSettings(false);
+            alert("설정이 로컬에 저장되었습니다. (서버 동기화 실패 시에도 정상 작동합니다)");
+        }
         finally { setLoading(false); }
     };
 
@@ -224,6 +253,11 @@ export default function App() {
                     slide_count: Number(slideCount),
                     ...(bgImage ? { bg_image_url: bgImage } : {}),
                     ...(selectedTheme ? { theme: selectedTheme } : {}),
+                    // API 키를 직접 전달 (서버 파일 저장 실패 시에도 동작)
+                    gemini_api_key: geminiApiKey || localStorage.getItem('gemini_api_key') || undefined,
+                    claude_api_key: claudeApiKey || localStorage.getItem('claude_api_key') || undefined,
+                    openai_api_key: openaiApiKey || localStorage.getItem('openai_api_key') || undefined,
+                    deepseek_api_key: deepseekApiKey || localStorage.getItem('deepseek_api_key') || undefined,
                 }),
             });
             if (!response.ok) {

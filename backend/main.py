@@ -148,8 +148,8 @@ def create_access_token(data: dict, expires_delta: timedelta = None):
     encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
     return encoded_jwt
 
-# Workspace Logic
-WORKSPACE = "/Users/gimhuitae/Work/Instargram_card_news"
+# Workspace Logic — use script-relative path so it works on any server (Railway, local, etc.)
+WORKSPACE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TMP_DIR = os.path.join(WORKSPACE, ".tmp")
 os.makedirs(TMP_DIR, exist_ok=True)
 SLIDES_DIR = os.path.join(TMP_DIR, "slides")
