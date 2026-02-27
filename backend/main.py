@@ -19,6 +19,10 @@ import httpx
 from fastapi.staticfiles import StaticFiles
 import xml.etree.ElementTree as ET
 from pytrends.request import TrendReq
+
+# 부모 디렉토리를 Python 경로에 추가
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 from execution.research_topic import research_topic
 from execution.generate_html_from_text import generate_html
 
