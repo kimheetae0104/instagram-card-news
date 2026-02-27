@@ -181,13 +181,13 @@ def generate_with_gemini(text, slides=5, bg_image=None, api_key=None):
         
         # 실제로 존재하는 Gemini 모델 ID만 사용 (2026-02 기준)
         # 존재하지 않는 모델 ID는 에러를 유발해 다른 provider 폴백을 막음
+        # gemini-1.5-pro는 v1beta API에서 NOT_FOUND 에러 발생 → 제거
         models_to_try = [
             "gemini-2.0-flash",
             "gemini-2.0-flash-lite",
             "gemini-1.5-flash",
-            "gemini-1.5-pro",
         ]
-        
+
         last_error_details = ""
         for model_id in models_to_try:
             try:
@@ -198,21 +198,40 @@ def generate_with_gemini(text, slides=5, bg_image=None, api_key=None):
                     config=types.GenerateContentConfig(
                         response_mime_type="application/json",
                         temperature=0.3,
+                        max_output_tokens=8192,
                     )
                 )
-                html = extract_html(response.text.strip())
+                # response.text가 None인 경우 안전하게 처리
+                raw_text = response.text if response.text is not None else ""
+                print(f"[DEBUG] {model_id} response length={len(raw_text)}, "
+                      f"preview={repr(raw_text[:100])}", file=sys.stderr)
+
+                if not raw_text:
+                    # finish_reason 확인 (SAFETY, MAX_TOKENS 등)
+                    try:
+                        finish = response.candidates[0].finish_reason if response.candidates else "UNKNOWN"
+                        print(f"[WARN] {model_id} empty response, finish_reason={finish}", file=sys.stderr)
+                        last_error_details = f"{model_id}: 빈 응답 (finish_reason={finish})"
+                    except Exception:
+                        last_error_details = f"{model_id}: 빈 응답"
+                    continue
+
+                html = extract_html(raw_text.strip())
                 if html:
                     print(f"[INFO] ✅ 생성 완료 ({model_id})", file=sys.stderr)
                     return html
+                else:
+                    print(f"[WARN] {model_id} HTML 추출 실패. raw={repr(raw_text[:200])}", file=sys.stderr)
+                    last_error_details = f"{model_id}: JSON 파싱 실패 (응답길이={len(raw_text)})"
             except Exception as e:
                 err_str = str(e)
                 print(f"[WARN] {model_id} failed: {err_str}", file=sys.stderr)
-                last_error_details = err_str
+                last_error_details = f"{model_id}: {err_str}"
                 # 특정 에러(인증 실패 등)인 경우 즉시 중단
                 if "API_KEY_INVALID" in err_str or "unauthorized" in err_str.lower():
                     raise e
                 continue
-        
+
         # 모든 모델 실패 시 상세 에러와 함께 예외 발생
         raise Exception(f"AI 서비스 호출 실패: {last_error_details}")
     except Exception as e:
