@@ -66,7 +66,11 @@ def decrypt_key(token: str) -> str:
     try:
         return _fernet.decrypt(token.encode()).decode()
     except Exception:
-        # 이미 평문(구버전 데이터)이거나 복호화 실패 시 그대로 반환
+        # Fernet 토큰 형식("gAAAAA"로 시작)이면 복호화 실패 → 빈 문자열 반환
+        # (쓰레기 암호화 토큰이 API 키로 사용되는 것 방지)
+        if token.startswith('gAAAAA'):
+            return ""
+        # 구버전 평문 API 키는 그대로 반환 (하위 호환)
         return token
 # ──────────────────────────────────────────────────────────────────────────
 
@@ -223,12 +227,17 @@ def load_settings():
     return {}
 
 def save_user_settings(email, settings: dict):
-    """API 키를 암호화해서 저장"""
+    """API 키를 암호화해서 저장 (history 등 기존 데이터는 보존)"""
     all_settings = load_settings()
-    encrypted = {}
+    # 기존 유저 데이터 로드 (history 등 보존)
+    user_data = all_settings.get(email, {})
+    # API 키만 업데이트 (history 등 다른 필드는 건드리지 않음)
     for k, v in settings.items():
-        encrypted[k] = encrypt_key(v) if v else ""
-    all_settings[email] = encrypted
+        if v:
+            user_data[k] = encrypt_key(v)
+        else:
+            user_data[k] = ""
+    all_settings[email] = user_data
     with open(SETTINGS_FILE, "w", encoding="utf-8") as f:
         json.dump(all_settings, f, ensure_ascii=False, indent=2)
 

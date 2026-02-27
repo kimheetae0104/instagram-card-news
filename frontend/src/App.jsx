@@ -286,10 +286,16 @@ export default function App() {
         try {
             const response = await fetch(`${BACKEND_URL}/api/generate_html`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('auth_token')}`
+                },
                 body: JSON.stringify({
                     text: `다음 HTML 카드뉴스를 이렇게 수정해줘: "${refineText}"\n\n현재 HTML:\n${editableHtml.substring(0, 3000)}`,
                     slide_count: Number(slideCount),
+                    gemini_api_key: geminiApiKey || localStorage.getItem('gemini_api_key') || undefined,
+                    claude_api_key: claudeApiKey || localStorage.getItem('claude_api_key') || undefined,
+                    openai_api_key: openaiApiKey || localStorage.getItem('openai_api_key') || undefined,
                 }),
             });
             if (response.ok) {
