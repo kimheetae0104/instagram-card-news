@@ -183,15 +183,15 @@ def generate_with_gemini(text, slides=5, bg_image=None, api_key=None):
         # 존재하지 않는 모델 ID는 즉시 실패하므로 로그로 확인 가능하게 함
         # 실제로 가용한 모델 ID 리스트 (404 예방)
         models_to_try = [
-            "gemini-2.0-flash",           # 최신 2.0 Flash
-            "gemini-1.5-flash",           # 표준 1.5 Flash
-            "gemini-1.5-flash-8b",        # 경량 Flash
-            "gemini-1.5-pro",            # 표준 1.5 Pro
-            "gemini-flash-latest",        # 별칭
-            "gemini-pro-latest"           # 별칭
+            "gemini-2.0-flash",
+            "gemini-2.5-flash",
+            "gemini-2.0-flash-lite",
+            "gemini-pro-latest",
+            "gemini-flash-latest",
+            "gemini-3-flash-preview"
         ]
         
-        last_error = None
+        last_error_details = ""
         for model_id in models_to_try:
             try:
                 print(f"[INFO] Attempting generation with {model_id}...", file=sys.stderr)
@@ -207,19 +207,17 @@ def generate_with_gemini(text, slides=5, bg_image=None, api_key=None):
                 if html:
                     print(f"[INFO] ✅ 생성 완료 ({model_id})", file=sys.stderr)
                     return html
-                else:
-                    print(f"[WARN] {model_id} produced empty or invalid HTML", file=sys.stderr)
             except Exception as e:
-                print(f"[WARN] {model_id} failed: {e}", file=sys.stderr)
-                last_error = e
-                # 429 에러(할당량 초과)가 발생하면 더 이상 다른 모델을 시도하지 않고 즉시 에러를 던짐
-                if "429" in str(e) or "RESOURCE_EXHAUSTED" in str(e):
+                err_str = str(e)
+                print(f"[WARN] {model_id} failed: {err_str}", file=sys.stderr)
+                last_error_details = err_str
+                # 특정 에러(인증 실패 등)인 경우 즉시 중단
+                if "API_KEY_INVALID" in err_str or "unauthorized" in err_str.lower():
                     raise e
                 continue
         
-        if last_error:
-            raise last_error
-        return None
+        # 모든 모델 실패 시 상세 에러와 함께 예외 발생
+        raise Exception(f"AI 서비스 호출 실패: {last_error_details}")
     except Exception as e:
         print(f"[ERROR] Gemini general error: {e}", file=sys.stderr)
         raise e

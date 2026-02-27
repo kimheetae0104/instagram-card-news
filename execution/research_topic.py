@@ -40,9 +40,9 @@ def research_topic(topic, api_key=None):
         # 할당량 분산을 위해 실제 가용 모델 리스트 사용
         models = [
             "gemini-2.0-flash",
-            "gemini-1.5-flash",
-            "gemini-1.5-flash-8b",
-            "gemini-1.5-pro",
+            "gemini-2.5-flash",
+            "gemini-2.0-flash-lite",
+            "gemini-pro-latest",
             "gemini-flash-latest"
         ]
         for model_id in models:
