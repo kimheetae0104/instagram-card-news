@@ -23,10 +23,11 @@ def research_topic(topic, api_key=None):
         from google.genai import types
         
         print(f"[INFO] Researching topic: {topic}...", file=sys.stderr)
-        # google-genai SDK 기본값은 v1beta → 현재 모델들은 v1에서만 동작
+        # Google Search Grounding 은 v1beta 에서만 지원됨 → v1beta 명시 또는 기본값 사용
+        # gemini-2.0-flash 등 최신 모델도 v1beta 에서만 제공되므로 v1 사용 금지
         client = genai.Client(
             api_key=key,
-            http_options={"api_version": "v1"},
+            http_options={"api_version": "v1beta"},
         )
 
         prompt = f"""

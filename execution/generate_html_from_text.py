@@ -173,74 +173,107 @@ def generate_with_gemini(text, slides=5, bg_image=None, api_key=None):
     key = api_key or GEMINI_API_KEY
     if not key:
         return None
-    try:
-        from google import genai
-        from google.genai import types
-        print(f"[INFO] Gemini generating...", file=sys.stderr)
-        # google-genai SDK 기본값은 v1beta → 현재 모델들은 v1에서만 동작
-        client = genai.Client(
-            api_key=key,
-            http_options={"api_version": "v1"},
-        )
-        
-        # 실제로 존재하는 Gemini 모델 ID만 사용 (2026-02 기준)
-        # 존재하지 않는 모델 ID는 에러를 유발해 다른 provider 폴백을 막음
-        # gemini-1.5-pro는 v1beta API에서 NOT_FOUND 에러 발생 → 제거
-        models_to_try = [
-            "gemini-2.0-flash",
-            "gemini-2.0-flash-lite",
-            "gemini-1.5-flash",
-        ]
 
-        last_error_details = ""
-        for model_id in models_to_try:
-            try:
-                print(f"[INFO] Attempting generation with {model_id}...", file=sys.stderr)
-                response = client.models.generate_content(
-                    model=model_id,
-                    contents=build_prompt(text, slides, bg_image),
-                    config=types.GenerateContentConfig(
-                        # v1 API는 responseMimeType 미지원 → 프롬프트로 JSON 유도
-                        temperature=0.3,
-                        max_output_tokens=8192,
-                    )
-                )
-                # response.text가 None인 경우 안전하게 처리
-                raw_text = response.text if response.text is not None else ""
-                print(f"[DEBUG] {model_id} response length={len(raw_text)}, "
-                      f"preview={repr(raw_text[:100])}", file=sys.stderr)
+    prompt = build_prompt(text, slides, bg_image)
 
-                if not raw_text:
-                    # finish_reason 확인 (SAFETY, MAX_TOKENS 등)
-                    try:
-                        finish = response.candidates[0].finish_reason if response.candidates else "UNKNOWN"
-                        print(f"[WARN] {model_id} empty response, finish_reason={finish}", file=sys.stderr)
-                        last_error_details = f"{model_id}: 빈 응답 (finish_reason={finish})"
-                    except Exception:
-                        last_error_details = f"{model_id}: 빈 응답"
-                    continue
+    # SDK 버전 호환성 문제를 완전히 제거하기 위해 Gemini REST API 직접 호출
+    # gemini-2.0-flash / gemini-2.0-flash-lite 는 v1beta 에서만 제공됨 (v1 미지원)
+    # responseMimeType: "application/json" → JSON 응답 강제 → extract_html 파싱 안정화
+    GEMINI_REST_BASE = "https://generativelanguage.googleapis.com/v1beta/models"
 
-                html = extract_html(raw_text.strip())
-                if html:
-                    print(f"[INFO] ✅ 생성 완료 ({model_id})", file=sys.stderr)
-                    return html
-                else:
-                    print(f"[WARN] {model_id} HTML 추출 실패. raw={repr(raw_text[:200])}", file=sys.stderr)
-                    last_error_details = f"{model_id}: JSON 파싱 실패 (응답길이={len(raw_text)})"
-            except Exception as e:
-                err_str = str(e)
-                print(f"[WARN] {model_id} failed: {err_str}", file=sys.stderr)
-                last_error_details = f"{model_id}: {err_str}"
-                # 특정 에러(인증 실패 등)인 경우 즉시 중단
-                if "API_KEY_INVALID" in err_str or "unauthorized" in err_str.lower():
-                    raise e
+    models_to_try = [
+        "gemini-2.0-flash",
+        "gemini-2.0-flash-lite",
+        "gemini-1.5-flash",
+    ]
+
+    last_error_details = ""
+    for model_id in models_to_try:
+        try:
+            print(f"[INFO] Attempting generation with {model_id} (Gemini REST v1beta)...", file=sys.stderr)
+            url = f"{GEMINI_REST_BASE}/{model_id}:generateContent"
+
+            payload = {
+                "contents": [{"parts": [{"text": prompt}]}],
+                "generationConfig": {
+                    "temperature": 0.3,
+                    "maxOutputTokens": 8192,
+                    "responseMimeType": "application/json",
+                },
+            }
+
+            resp = httpx.post(
+                url,
+                params={"key": key},
+                json=payload,
+                timeout=120.0,
+            )
+
+            print(f"[DEBUG] {model_id} HTTP status={resp.status_code}", file=sys.stderr)
+
+            # 인증 오류 → 즉시 중단 (다른 모델을 시도해도 동일하게 실패)
+            if resp.status_code in (401, 403):
+                err = f"{model_id}: 인증 실패 - API 키를 확인해주세요 (HTTP {resp.status_code})"
+                print(f"[ERROR] {err}", file=sys.stderr)
+                raise Exception(err)
+
+            if resp.status_code != 200:
+                try:
+                    err_msg = resp.json().get("error", {}).get("message", resp.text[:300])
+                except Exception:
+                    err_msg = resp.text[:300]
+                err = f"{model_id}: HTTP {resp.status_code} - {err_msg}"
+                print(f"[WARN] {err}", file=sys.stderr)
+                last_error_details = err
                 continue
 
-        # 모든 모델 실패 시 상세 에러와 함께 예외 발생
-        raise Exception(f"AI 서비스 호출 실패: {last_error_details}")
-    except Exception as e:
-        print(f"[ERROR] Gemini general error: {e}", file=sys.stderr)
-        raise e
+            data = resp.json()
+            candidates = data.get("candidates", [])
+            if not candidates:
+                last_error_details = f"{model_id}: 응답에 candidates 없음"
+                print(f"[WARN] {last_error_details}", file=sys.stderr)
+                continue
+
+            raw_text = (
+                candidates[0]
+                .get("content", {})
+                .get("parts", [{}])[0]
+                .get("text", "")
+            )
+
+            print(
+                f"[DEBUG] {model_id} response length={len(raw_text)}, "
+                f"preview={repr(raw_text[:100])}",
+                file=sys.stderr,
+            )
+
+            if not raw_text:
+                finish_reason = candidates[0].get("finishReason", "UNKNOWN")
+                last_error_details = f"{model_id}: 빈 응답 (finishReason={finish_reason})"
+                print(f"[WARN] {last_error_details}", file=sys.stderr)
+                continue
+
+            html = extract_html(raw_text.strip())
+            if html:
+                print(f"[INFO] ✅ 생성 완료 ({model_id})", file=sys.stderr)
+                return html
+            else:
+                print(
+                    f"[WARN] {model_id} HTML 추출 실패. raw={repr(raw_text[:200])}",
+                    file=sys.stderr,
+                )
+                last_error_details = f"{model_id}: JSON 파싱 실패 (응답길이={len(raw_text)})"
+
+        except Exception as e:
+            err_str = str(e)
+            print(f"[WARN] {model_id} failed: {err_str}", file=sys.stderr)
+            last_error_details = f"{model_id}: {err_str}"
+            # 인증 실패는 즉시 중단
+            if "인증 실패" in err_str or "API_KEY_INVALID" in err_str:
+                raise e
+            continue
+
+    raise Exception(f"AI 서비스 호출 실패: {last_error_details}")
 
 
 def generate_with_claude(text, slides=5, bg_image=None, api_key=None):
