@@ -23,26 +23,28 @@ def research_topic(topic, api_key=None):
         from google.genai import types
         
         print(f"[INFO] Researching topic: {topic}...", file=sys.stderr)
-        client = genai.Client(api_key=key)
-        
+        # google-genai SDK 기본값은 v1beta → 현재 모델들은 v1에서만 동작
+        client = genai.Client(
+            api_key=key,
+            http_options={"api_version": "v1"},
+        )
+
         prompt = f"""
         You are a world-class technology analyst. Research the ABSOLUTE LATEST information of 2026 for the topic: "{topic}".
         Use Google Search to find current facts, specific model versions (e.g., Claude 3.7, Gemini 3.1 Pro, GPT-5/o), and real-world 2026 benchmarks.
-        
+
         CRITICAL: Provide a HIGH-DENSITY research report (1500+ characters).
         1. [2026 CURRENT LEADERS] List the top tools/models as of February 2026. Mention specific names like Claude 3.7+, Gemini 3.1 Pro, etc.
         2. [TECHNICAL SPECS] Provide actual features, parameter trends (if known), or specific use cases that emerged in late 2025/early 2026.
         3. [MARKET DATA] 3+ Real statistics, user counts, or market share data from 2025-2026 reports.
-        
+
         All content must be in KOREAN. Do not provide 2024/2025 info unless it's for comparison. Focus on the NEWEST stuff that just came out.
         """
-        
-        # 실제로 존재하는 Gemini 모델 ID만 사용 (2026-02 기준)
+
         models = [
             "gemini-2.0-flash",
             "gemini-2.0-flash-lite",
             "gemini-1.5-flash",
-            "gemini-1.5-pro",
         ]
         for model_id in models:
             try:

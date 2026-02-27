@@ -386,7 +386,10 @@ async def test_api_keys(request: TestKeyRequest, request_raw: Request):
     if gemini_key:
         try:
             from google import genai
-            client = genai.Client(api_key=gemini_key)
+            client = genai.Client(
+                api_key=gemini_key,
+                http_options={"api_version": "v1"},
+            )
             resp = client.models.generate_content(
                 model="gemini-2.0-flash",
                 contents="Say 'ok' in one word.",

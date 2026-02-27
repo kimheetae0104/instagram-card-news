@@ -176,8 +176,12 @@ def generate_with_gemini(text, slides=5, bg_image=None, api_key=None):
     try:
         from google import genai
         from google.genai import types
-        print(f"[INFO] Gemini (1.5-flash) generating...", file=sys.stderr)
-        client = genai.Client(api_key=key)
+        print(f"[INFO] Gemini generating...", file=sys.stderr)
+        # google-genai SDK 기본값은 v1beta → 현재 모델들은 v1에서만 동작
+        client = genai.Client(
+            api_key=key,
+            http_options={"api_version": "v1"},
+        )
         
         # 실제로 존재하는 Gemini 모델 ID만 사용 (2026-02 기준)
         # 존재하지 않는 모델 ID는 에러를 유발해 다른 provider 폴백을 막음
