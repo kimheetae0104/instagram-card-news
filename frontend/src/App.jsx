@@ -138,7 +138,7 @@ export default function App() {
         finally { setAuthChecking(false); }
     };
 
-    const fetchUserSettings = async () => {
+    const fetchUserSettings = async (showPopupIfEmpty = false) => {
         const token = localStorage.getItem('auth_token');
         if (!token) return;
         try {
@@ -151,6 +151,11 @@ export default function App() {
                 setClaudeApiKey(data.claude_api_key || '');
                 setOpenaiApiKey(data.openai_api_key || '');
                 setDeepseekApiKey(data.deepseek_api_key || '');
+                // API 키가 하나도 없으면 설정 팝업 자동 열기
+                const hasAnyKey = data.gemini_api_key || data.claude_api_key || data.openai_api_key || data.deepseek_api_key;
+                if (showPopupIfEmpty && !hasAnyKey) {
+                    setTimeout(() => setShowSettings(true), 500);
+                }
             }
         } catch (err) { console.error("Settings fetch failed", err); }
     };
@@ -529,7 +534,8 @@ export default function App() {
         const urlParams = new URLSearchParams(window.location.search);
         const token = urlParams.get('token');
         if (token) { localStorage.setItem('auth_token', token); window.history.replaceState({}, document.title, "/"); }
-        checkAuth(); fetchHistory(); checkHealth(); fetchUserSettings();
+        const isNewLogin = !!urlParams.get('token');
+        checkAuth(); fetchHistory(); checkHealth(); fetchUserSettings(isNewLogin);
 
         const handleKeyDown = (e) => {
             if (e.key === 'z' && (e.metaKey || e.ctrlKey) && !e.shiftKey) {
@@ -688,29 +694,29 @@ export default function App() {
             <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700;900&family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet" />
 
             {/* ===== HEADER ===== */}
-            <header className="h-12 border-b border-gray-200/60 flex items-center justify-between px-5 bg-white/80 backdrop-blur-xl z-50 shrink-0">
+            <header className="h-16 border-b border-gray-200/60 flex items-center justify-between px-5 bg-white/80 backdrop-blur-xl z-50 shrink-0">
                 <div className="flex items-center gap-3">
-                    <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-[#833AB4] via-[#E1306C] to-[#F77737] flex items-center justify-center">
-                        <Instagram size={14} className="text-white" />
+                    <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#833AB4] via-[#E1306C] to-[#F77737] flex items-center justify-center shadow-md">
+                        <Instagram size={18} className="text-white" />
                     </div>
-                    <div className="flex items-center gap-1.5 mr-2">
-                        <span className="font-black text-sm">카드뉴스</span>
-                        <span className="text-[10px] font-bold text-gray-400">스튜디오</span>
+                    <div className="flex flex-col">
+                        <span className="font-black text-base leading-tight">카드뉴스</span>
+                        <span className="text-[10px] font-bold text-gray-400 leading-tight">스튜디오</span>
                     </div>
-                    <div className="hidden md:flex items-center gap-1 bg-gray-50 border border-gray-100 px-3 py-1 rounded-full">
-                        <div className={`w-1.5 h-1.5 rounded-full ${backendStatus === 'online' ? 'bg-green-500 shadow-[0_0_6px_rgba(34,197,94,0.4)]' : 'bg-red-500'}`} />
-                        <span className="text-[9px] font-bold text-gray-500 uppercase tracking-tighter">
+                    <div className="hidden md:flex items-center gap-1.5 bg-gray-50 border border-gray-100 px-3 py-1.5 rounded-full ml-1">
+                        <div className={`w-2 h-2 rounded-full ${backendStatus === 'online' ? 'bg-green-500 shadow-[0_0_6px_rgba(34,197,94,0.4)]' : 'bg-red-500'}`} />
+                        <span className="text-[10px] font-bold text-gray-500 uppercase tracking-tighter">
                             {backendStatus === 'online' ? 'AI Engine Active' : 'Offline'}
                         </span>
                     </div>
                 </div>
 
                 {/* Step Indicator */}
-                <div className="flex items-center gap-1">
+                <div className="flex items-center gap-1.5">
                     {['입력', '편집', '내보내기'].map((label, i) => (
                         <button key={i} onClick={() => { if (i + 1 <= (htmlText ? 2 : 1)) setActiveStep(i + 1); }}
-                            className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-[9px] font-bold transition-all ${activeStep === i + 1 ? 'bg-gray-900 text-white' : activeStep > i + 1 ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-400'}`}>
-                            {activeStep > i + 1 ? <Check size={9} /> : <span>{i + 1}</span>}
+                            className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-[11px] font-bold transition-all ${activeStep === i + 1 ? 'bg-gray-900 text-white' : activeStep > i + 1 ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-400'}`}>
+                            {activeStep > i + 1 ? <Check size={10} /> : <span>{i + 1}</span>}
                             {label}
                         </button>
                     ))}
@@ -719,13 +725,14 @@ export default function App() {
                 <div className="flex items-center gap-3">
                     {user && (
                         <div className="flex items-center gap-2">
-                            <button onClick={() => setShowSettings(true)} className="text-gray-400 hover:text-gray-900 transition-colors p-1" title="API 설정">
-                                <Sliders size={14} />
+                            <button onClick={() => setShowSettings(true)} className="flex items-center gap-1.5 text-gray-400 hover:text-gray-900 transition-colors px-2 py-1 rounded-lg hover:bg-gray-100" title="API 설정">
+                                <Sliders size={16} />
+                                <span className="text-[11px] font-bold hidden sm:block">API 설정</span>
                             </button>
-                            {user.picture && <img src={user.picture} alt="avatar" className="w-6 h-6 rounded-full" />}
-                            <span className="text-[10px] font-bold text-gray-600 hidden md:block">{user.name}</span>
-                            <button onClick={handleLogout} className="text-gray-300 hover:text-gray-900 transition-colors p-1">
-                                <LogOut size={14} />
+                            {user.picture && <img src={user.picture} alt="avatar" className="w-8 h-8 rounded-full border-2 border-gray-100" />}
+                            <span className="text-xs font-bold text-gray-600 hidden md:block">{user.name}</span>
+                            <button onClick={handleLogout} className="text-gray-300 hover:text-red-400 transition-colors p-1.5 rounded-lg hover:bg-red-50">
+                                <LogOut size={15} />
                             </button>
                         </div>
                     )}
